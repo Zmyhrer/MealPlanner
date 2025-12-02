@@ -1,0 +1,20 @@
+.navBar {
+    background-color: grey;
+    width: 100%;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.navItems {
+    background-color: blue;
+    width: 400px;
+    justify-content: center;
+}
+
+.navItems ul{
+    background-color: yellow;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
