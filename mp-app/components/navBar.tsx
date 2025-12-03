@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/navBar.css";
+import NavLink from "./navLink";
 
 const navBar = () => {
   return (
@@ -7,16 +8,16 @@ const navBar = () => {
       <div className="navItems">
         <ul>
           <li>
-            <a href="/dashboard">Dashboard</a>
+            <NavLink href="/dashboard" text="Dashboard" />
           </li>
           <li>
-            <a href="/meals">Meals</a>
+            <NavLink href="/meals" text="Meals" />
           </li>
           <li>
-            <a href="/plan">Plan</a>
+            <NavLink href="/plan" text="Plan" />
           </li>
           <li>
-            <a href="/grocery">Grocery</a>
+            <NavLink href="/grocery" text="Grocery" />
           </li>
         </ul>
       </div>
