@@ -17,9 +17,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        <NavBar />
-        {children}
+        <div className="grid-container">
+          <div className="grid-item grid-item-1">
+            <Header />
+            <NavBar />
+          </div>
+          <div className="grid-item grid-item-2">Grid Item 2</div>
+          <div className="grid-item grid-item-3">Grid Item 3</div>
+        </div>
       </body>
     </html>
   );
