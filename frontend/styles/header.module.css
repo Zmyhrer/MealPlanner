@@ -1,9 +1,7 @@
-header {
+.header {
     display: flex;
     justify-content: center;
     background-color: black;
     color: white;
     font-size: x-large;
-
-
 }

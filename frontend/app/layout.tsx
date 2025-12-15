@@ -22,8 +22,7 @@ export default function RootLayout({
             <Header />
             <NavBar />
           </div>
-          <div className="grid-item grid-item-2">Grid Item 2</div>
-          <div className="grid-item grid-item-3">Grid Item 3</div>
+          <div className="grid-item grid-item-3">{children}</div>
         </div>
       </body>
     </html>

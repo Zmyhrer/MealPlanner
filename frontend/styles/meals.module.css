@@ -1,0 +1,24 @@
+.grid-container{
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px auto;
+}
+
+
+.grid-item-1{
+    grid-column-start: 1;
+    grid-column-end: 2;
+
+}
+
+
+.grid-item-2{
+ grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+.grid-item-3{
+    
+}

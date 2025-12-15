@@ -1,11 +1,11 @@
 import React from "react";
-import "../styles/navBar.css";
+import styles from "../styles/navBar.module.css";
 import NavLink from "./navLink";
 
 const navBar = () => {
   return (
-    <nav className="navBar">
-      <div className="navItems">
+    <nav className={styles.navBar}>
+      <div className={styles.navItems}>
         <ul>
           <li>
             <NavLink href="/dashboard" text="Dashboard" />
