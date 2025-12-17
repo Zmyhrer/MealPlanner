@@ -18,11 +18,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className="grid-container">
-          <div className="grid-item grid-item-1">
+          <div className="grid-item-1">
             <Header />
             <NavBar />
           </div>
-          <div className="grid-item grid-item-3">{children}</div>
+          <div className="main">{children}</div>
         </div>
       </body>
     </html>

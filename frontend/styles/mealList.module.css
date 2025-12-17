@@ -1,0 +1,39 @@
+/* styles/mealList.module.css */
+.container{
+  height: 100%;
+  width: 100%;
+  max-width: 1200px;
+  border: 2px solid grey;
+  border-radius: 18px;
+  padding: 8px;
+  margin-left: 10px;
+  margin-right: 10px;
+
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;   /* three columns */
+  grid-template-rows: auto 1fr;     /* first row: auto, second row: fill remaining space */
+  gap: 10px;
+}
+
+.grid-item-end {
+  grid-column: 1 / -1; /* span both columns */
+  background-color: lightgreen; /* optional, for visualization */
+}
+
+
+
+@media (max-width: 900px) {
+  .gridContainer{
+     grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .gridContainer{
+     grid-template-columns: 1fr;
+  }
+}
