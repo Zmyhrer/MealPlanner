@@ -11,6 +11,7 @@ const searchBar = () => {
       <input
         className={styles["searchInput"]}
         type="search"
+        id="searchInput"
         placeholder="Search Meals"
       />
     </div>
