@@ -4,7 +4,6 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr; /* header, main content, footer */
-  gap: 10px;
 }
 
 .grid-item-1 {

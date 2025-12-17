@@ -6,9 +6,6 @@
   border: 2px solid grey;
   border-radius: 18px;
   padding: 8px;
-  margin-left: 10px;
-  margin-right: 10px;
-
 }
 
 .gridContainer {
@@ -17,12 +14,6 @@
   grid-template-rows: auto 1fr;     /* first row: auto, second row: fill remaining space */
   gap: 10px;
 }
-
-.grid-item-end {
-  grid-column: 1 / -1; /* span both columns */
-  background-color: lightgreen; /* optional, for visualization */
-}
-
 
 
 @media (max-width: 900px) {
