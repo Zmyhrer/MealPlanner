@@ -1,12 +1,17 @@
-import React from "react";
+import Link from "next/link";
+import styles from "../styles/navBar.module.css";
 
-type NavLinkProps = {
+interface NavLinkProps {
   href: string;
   text: string;
+}
+
+const NavLink = ({ href, text }: NavLinkProps) => {
+  return (
+    <Link href={href} className={styles.navLink}>
+      {text}
+    </Link>
+  );
 };
 
-const navLink: React.FC<NavLinkProps> = ({ href, text }) => {
-  return <a href={href}>{text}</a>;
-};
-
-export default navLink;
+export default NavLink;
