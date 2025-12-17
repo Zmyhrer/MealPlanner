@@ -8,7 +8,11 @@ const searchBar = () => {
       <div className={styles["icon"]}>
         <Image src="/search.png" alt="search icon" width={20} height={20} />
       </div>
-      <input type="search" className={styles["searchInput"]} />
+      <input
+        className={styles["searchInput"]}
+        type="search"
+        placeholder="Search Meals"
+      />
     </div>
   );
 };
