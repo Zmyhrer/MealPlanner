@@ -1,18 +1,24 @@
 .container{
-    box-shadow: 1px 1px 2px 2px grey;
-    border-radius: 15px;
-    padding: 10px;
-}
-
-.container:hover{
-    background-color: rgb(197, 197, 197);
-}
-
-.icon{
+    height: 44;
+    width: 44;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 24;
-    width: 24;
-    font-size: x-large;
+    box-shadow: 1px 1px 2px 2px grey;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: white;
+}
+
+.container:hover{
+    background-color: rgb(236, 236, 236);
+}
+
+.icon{
+    height: 28px;
+    width: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
 }
