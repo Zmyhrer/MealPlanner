@@ -1,22 +1,25 @@
-"use client";
-
+/**
+ * AddMealButton
+ * A toggleable button that rotates + into ×
+ */
 import React from "react";
-import Styles from "@/styles/addMealButton.module.css";
+import styles from "@/styles/addMealButton.module.css";
 
-const addMealButton = () => {
-  const handleOnClick = () => {
-    alert("Add Meal Button");
-  };
+interface AddMealButtonProps {
+  isActive: boolean;
+  onClick: () => void;
+}
 
+const AddMealButton: React.FC<AddMealButtonProps> = ({ isActive, onClick }) => {
   return (
-    <button
-      className={Styles["container"]}
-      type="button"
-      onClick={handleOnClick}
+    <div
+      className={`${styles.container} ${isActive ? styles.active : ""}`}
+      role="button"
+      onClick={onClick}
     >
-      <div className={Styles["icon"]}>+</div>
-    </button>
+      <span className={styles.icon}>+</span>
+    </div>
   );
 };
 
-export default addMealButton;
+export default AddMealButton;

@@ -1,10 +1,19 @@
-import React from "react";
-import styles from "../../styles/meals.module.css";
+"use client";
+
+import React, { useState } from "react";
+import Styles from "../../styles/meals.module.css";
 import SearchBar from "@/components/searchBar";
 import MealList from "@/components/mealList";
 import AddMealButton from "@/components/addMealButton";
+import AddMealForm from "@/components/addMealForm";
 
-const page = () => {
+const Page = () => {
+  const [isAddMeal, setIsAddMeal] = useState<boolean>(false);
+
+  const handleAddMealButton = () => {
+    setIsAddMeal((prev) => !prev);
+  };
+
   const meals = [
     { name: "Mac and Cheese" },
     { name: "Spaghetti" },
@@ -14,49 +23,23 @@ const page = () => {
     { name: "Peanut Butter & Jelly Sandwich" },
     { name: "Peanut Butter & Jelly Sandwich" },
     { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
-    { name: "Peanut Butter & Jelly Sandwich" },
   ];
 
   return (
-    <div className={styles["grid-container"]}>
-      <div className={styles["top-container"]}>
-        <div className={styles["left-container"]}>
+    <div className={Styles["grid-container"]}>
+      <div className={Styles["top-container"]}>
+        <div className={Styles["left-container"]}>
           <SearchBar />
         </div>
-        <div className={styles["right-container"]}>
-          <AddMealButton />
+        <div className={Styles["right-container"]}>
+          <AddMealButton onClick={handleAddMealButton} isActive={isAddMeal} />
         </div>
       </div>
-      <div className={styles["bottom-container"]}>
-        <MealList meals={meals} />
+      <div className={Styles["bottom-container"]}>
+        {isAddMeal ? <AddMealForm /> : <MealList meals={meals} />}
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;
