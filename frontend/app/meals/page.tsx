@@ -44,11 +44,15 @@ const page = () => {
 
   return (
     <div className={styles["grid-container"]}>
-      <div className={styles["grid-item-1"]}>
-        <SearchBar />
-        <AddMealButton />
+      <div className={styles["top-container"]}>
+        <div className={styles["left-container"]}>
+          <SearchBar />
+        </div>
+        <div className={styles["right-container"]}>
+          <AddMealButton />
+        </div>
       </div>
-      <div className={styles["grid-item-2"]}>
+      <div className={styles["bottom-container"]}>
         <MealList meals={meals} />
       </div>
     </div>

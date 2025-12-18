@@ -8,15 +8,28 @@
   padding: 10px;
 }
 
-.grid-item-1 {
+.top-container {
   height: 100%;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between-;
   align-items: center;
+  gap: 10px;
 }
 
-.grid-item-2 {
+.bottom-container {
+  width: 100%;
   display: flex;
   justify-content: center;
-  width: 100%;
+}
+
+.left-container {
+  flex: 1;
+}
+
+.right-container {
+  display: flex;
+  justify-content: end;
+  flex: 1;
+
 }

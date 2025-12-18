@@ -1,24 +1,39 @@
-.container{
-    height: 44;
-    width: 44;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 1px 1px 2px 2px grey;
-    border-radius: 8px;
-    padding: 10px;
-    background-color: white;
+.container {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 2px 2px grey;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
 }
 
-.container:hover{
-    background-color: rgb(236, 236, 236);
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(230,230,230), rgb(255,255,255));
+  background-size: 100% 200%;
+  transform: translateY(100%); /* start from bottom */
+  transition: transform 0.5s ease;
+  z-index: 0;
 }
 
-.icon{
-    height: 28px;
-    width: 28px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 28px;
+.container:hover::before {
+  transform: translateY(0); /* move gradient up */
+}
+
+.container .icon {
+  position: relative; /* text/icon above gradient */
+  z-index: 1;
+  color: #a9a9a9;
+  transition: color 0.5s ease;
+  font-size: 24px;
+}
+
+.container:hover .icon {
+  color: rgb(0,0,0);
 }
