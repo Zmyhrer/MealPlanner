@@ -18,9 +18,11 @@
 }
 
 .bottom-container {
+  height: 100%;
   width: 100%;
-  display: flex;
-  justify-content: center;
+  border: 2px solid grey;
+  border-radius: 18px;
+  padding: 8px;
 }
 
 .left-container {

@@ -9,12 +9,10 @@ export interface MealListProps {
 
 const MealList: React.FC<MealListProps> = ({ meals }) => {
   return (
-    <div className={Styles["container"]}>
-      <div className={Styles["gridContainer"]}>
-        {meals?.map((meal, index) => (
-          <MealItem key={index} name={meal.name} />
-        ))}
-      </div>
+    <div className={Styles["gridContainer"]}>
+      {(meals || []).map((meal, index) => (
+        <MealItem key={index} name={meal.name} />
+      ))}
     </div>
   );
 };

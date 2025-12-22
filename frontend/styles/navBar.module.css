@@ -78,7 +78,7 @@
   position: absolute;
   top: 0;
   height: 100%;
-  background-color: rgb(128, 90, 213);
+  background-color: rgb(130, 130, 243);
   border-radius: 8px;
   transition: left 300ms ease, width 300ms ease;
   z-index: 0;
