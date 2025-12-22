@@ -1,0 +1,88 @@
+/**
+ * Outer container for the entire date selection component
+ */
+.large-container {
+  width: 100%;
+  max-width: 185px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/**
+ * Top label (e.g., "Start Date")
+ */
+.top-container {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+}
+
+/**
+ * Bottom row containing arrows and date
+ */
+.bottom-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+}
+
+/**
+ * Center date container
+ */
+.date-container {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+/**
+ * Year text (top-right corner)
+ */
+.top-date-container {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 10px;
+  color: #888;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/**
+ * Date text
+ */
+.bottom-date-container {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+  z-index: 1;
+}
+
+/**
+ * Left arrow container
+ */
+.date-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/**
+ * Right arrow container
+ */
+.date-forward {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform: rotate(180deg);
+}
