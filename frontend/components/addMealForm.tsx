@@ -1,5 +1,5 @@
 // components/AddMealForm.tsx
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Styles from "@/styles/addMealForm.module.css";
 
 interface Ingredient {
@@ -13,20 +13,31 @@ const AddMealForm: React.FC = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
   const [ingredients, setIngredients] = useState<Ingredient[]>([
-    { quantity: "", unit: "g", name: "" },
+    { quantity: "", unit: "tsp", name: "" },
   ]);
   const [instructions, setInstructions] = useState("");
 
+  // Refs for ingredient name inputs
+  const ingredientRefs = useRef<Array<HTMLInputElement | null>>([]);
+
   // Tags
   const handleAddTag = () => {
-    if (tagInput.trim() && !tags.includes(tagInput.trim())) {
-      setTags([...tags, tagInput.trim()]);
+    const trimmed = tagInput.trim();
+    if (trimmed && !tags.includes(trimmed)) {
+      setTags([...tags, trimmed]);
       setTagInput("");
     }
   };
 
   const handleRemoveTag = (tag: string) => {
     setTags(tags.filter((t) => t !== tag));
+  };
+
+  const handleKeyDownTag = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleAddTag();
+    }
   };
 
   // Ingredients
@@ -41,7 +52,7 @@ const AddMealForm: React.FC = () => {
   };
 
   const handleAddIngredient = () => {
-    setIngredients([...ingredients, { quantity: "", unit: "g", name: "" }]);
+    setIngredients([...ingredients, { quantity: "", unit: "tsp", name: "" }]);
   };
 
   const handleRemoveIngredient = (index: number) => {
@@ -49,6 +60,12 @@ const AddMealForm: React.FC = () => {
     updated.splice(index, 1);
     setIngredients(updated);
   };
+
+  // Focus the last ingredient name input when a new ingredient is added
+  useEffect(() => {
+    const lastIndex = ingredients.length - 1;
+    ingredientRefs.current[lastIndex]?.focus();
+  }, [ingredients.length]);
 
   // Submit
   const handleSubmit = (e: React.FormEvent) => {
@@ -62,7 +79,7 @@ const AddMealForm: React.FC = () => {
     alert(`Meal added: ${mealName}`);
     setMealName("");
     setTags([]);
-    setIngredients([{ quantity: "", unit: "g", name: "" }]);
+    setIngredients([{ quantity: "", unit: "tsp", name: "" }]);
     setInstructions("");
   };
 
@@ -91,6 +108,7 @@ const AddMealForm: React.FC = () => {
             value={tagInput}
             onChange={(e) => setTagInput(e.target.value)}
             placeholder="Enter tag"
+            onKeyDown={handleKeyDownTag}
           />
           <button type="button" onClick={handleAddTag}>
             Add
@@ -121,20 +139,24 @@ const AddMealForm: React.FC = () => {
               }
               placeholder="Qty (1, 1/2)"
               required
+              ref={(el) => {
+                ingredientRefs.current[index] = el;
+              }}
             />
             <select
               value={ing.unit}
+              required
               onChange={(e) =>
                 handleIngredientChange(index, "unit", e.target.value)
               }
             >
+              <option value="tsp">tsp(s)</option>
+              <option value="tbsp">tbsp(s)</option>
+              <option value="cup">cup(s)</option>
               <option value="g">g(s)</option>
               <option value="kg">kg(s)</option>
               <option value="ml">ml(s)</option>
               <option value="l">l(s)</option>
-              <option value="tsp">tsp(s)</option>
-              <option value="tbsp">tbsp(s)</option>
-              <option value="cup">cup(s)</option>
             </select>
             <input
               type="text"
@@ -144,6 +166,17 @@ const AddMealForm: React.FC = () => {
               }
               placeholder="Ingredient"
               required
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  // Focus next ingredient name or add new
+                  if (ingredientRefs.current[index + 1]) {
+                    ingredientRefs.current[index + 1]?.focus();
+                  } else {
+                    handleAddIngredient();
+                  }
+                }
+              }}
             />
             <button type="button" onClick={() => handleRemoveIngredient(index)}>
               ×
