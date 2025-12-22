@@ -1,6 +1,7 @@
 // components/AddMealForm.tsx
 import React, { useState, useRef, useEffect } from "react";
 import Styles from "@/styles/addMealForm.module.css";
+import { addMeal, Meal } from "@/services/mealService";
 
 interface Ingredient {
   quantity: string;
@@ -68,7 +69,7 @@ const AddMealForm: React.FC = () => {
   }, [ingredients.length]);
 
   // Submit
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log({
       mealName,
@@ -76,11 +77,29 @@ const AddMealForm: React.FC = () => {
       ingredients,
       instructions,
     });
-    alert(`Meal added: ${mealName}`);
-    setMealName("");
-    setTags([]);
-    setIngredients([{ quantity: "", unit: "tsp", name: "" }]);
-    setInstructions("");
+
+    const meal: Meal = {
+      mealName,
+      tags,
+      ingredients,
+      instructions,
+    };
+
+    //MealService addMeal function
+    try {
+      const result = await addMeal(meal);
+      console.log(result);
+      alert("Meal added successfully");
+
+      // Reset form
+      setMealName("");
+      setTags([]);
+      setIngredients([{ quantity: "", unit: "g", name: "" }]);
+      setInstructions("");
+    } catch (error) {
+      console.error(error);
+      alert("Failed to add meal");
+    }
   };
 
   return (
