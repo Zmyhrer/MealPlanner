@@ -73,11 +73,14 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
         </div>
 
         <div className={styles["date-container"]}>
-          <div className={styles["top-date-container"]}>
+          <div className={styles["weekday-text-container"]}>
+            {formatWeekday(date)}
+          </div>
+          <div className={styles["year-text-container"]}>
             {date.getFullYear()}
           </div>
-          <div className={styles["bottom-date-container"]}>
-            {formatWeekday(date)}, {formatMonthDay(date)}
+          <div className={styles["date-text-container"]}>
+            {formatMonthDay(date)}
           </div>
         </div>
 

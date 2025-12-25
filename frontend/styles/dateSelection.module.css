@@ -40,13 +40,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 5px;
+  padding-top: 10px;
+}
+
+.weekday-text-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 10px;
+  color: #888;
+  z-index: 2;
+  pointer-events: none;
 }
 
 /**
  * Year text (top-right corner)
  */
-.top-date-container {
+.year-text-container {
   position: absolute;
   top: 0px;
   right: 0px;
@@ -59,7 +69,7 @@
 /**
  * Date text
  */
-.bottom-date-container {
+.date-text-container {
   font-size: 24px;
   font-weight: 600;
   color: #222;
@@ -84,4 +94,24 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+/**
+ * Tablets
+ */
+@media (max-width: 768px){
+  .year-text-container{
+    display: none;
+  }
+
+  .weekday-text-container{
+    display: none;
+  }
+}
+
+/**
+ * Small phones
+ */
+@media (max-width: 480px){
+  
 }
