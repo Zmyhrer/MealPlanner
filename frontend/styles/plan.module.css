@@ -1,3 +1,12 @@
 .plan-container {
-    
+    display: block;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.date-view {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
 }

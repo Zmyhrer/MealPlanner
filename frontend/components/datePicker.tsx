@@ -80,31 +80,31 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   };
 
   return (
-    <div className={styles.datepicker}>
-      <div className={styles.header}>
+    <div className={styles["datepicker"]}>
+      <div className={styles["header"]}>
         <button
-          className={styles.nav}
+          className={styles["nav"]}
           onClick={() => changeMonth(-1)}
           aria-label="Previous month"
         >
           ‹
         </button>
 
-        <div className={styles.topDisplay}>
-          <span className={styles.title}>
+        <div className={styles["topDisplay"]}>
+          <span className={styles["title"]}>
             {currentMonth.toLocaleString("default", {
               month: "long",
               year: "numeric",
             })}
           </span>
 
-          <button className={styles.currentButton} onClick={goToCurrentWeek}>
+          <button className={styles["currentButton"]} onClick={goToCurrentWeek}>
             Current
           </button>
         </div>
 
         <button
-          className={styles.nav}
+          className={styles["nav"]}
           onClick={() => changeMonth(1)}
           aria-label="Next month"
         >
@@ -112,15 +112,15 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         </button>
       </div>
 
-      <div className={styles.weekdays}>
+      <div className={styles["weekdays"]}>
         {WEEKDAYS.map((day) => (
-          <div key={day} className={styles.weekday}>
+          <div key={day} className={styles["weekday"]}>
             {day}
           </div>
         ))}
       </div>
 
-      <div className={styles.grid}>
+      <div className={styles["grid"]}>
         {daysInMonth().map(({ date, inCurrentMonth }) => {
           const selected =
             normalize(value).getTime() === normalize(date).getTime();
@@ -130,10 +130,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           return (
             <button
               key={date.toISOString()}
-              className={`${styles.day} ${
-                !inCurrentMonth ? styles.outsideMonth : ""
-              } ${selected ? styles.selected : ""} ${
-                isFirstOfMonth ? styles.firstDay : ""
+              className={`${styles["day"]} ${
+                !inCurrentMonth ? styles["outsideMonth"] : ""
+              } ${selected ? styles["selected"] : ""} ${
+                isFirstOfMonth ? styles["firstDay"] : ""
               }`}
               disabled={disabled}
               onClick={() => !disabled && onChange(date)}

@@ -1,8 +1,6 @@
 .large-container { /* Outer container for the entire date selection component */
-  width: 100%;
   position: relative;
   max-width: 185px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
