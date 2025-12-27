@@ -10,12 +10,12 @@
 .header { /* Header (Navigation & Title) */
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
   margin-bottom: 6px;
 }
 
 .title { /* Month/Year Title */
-  flex: 1;
   text-align: center;
   font-size: 14px;
   font-weight: 600;
@@ -34,7 +34,7 @@
   background: #f3f2f1;
 }
 
-.todayButton { /* Today Button inline with header */
+.currentButton { /* Current Button inline with header */
   background-color: #eee;
   border: 1px solid #ccc;
   padding: 4px 8px;
@@ -43,8 +43,14 @@
   font-size: 12px;
 }
 
-.todayButton:hover { /* Today Button hover */
+.currentButton:hover { /* Current Button hover */
   background-color: #ddd;
+}
+
+.topDisplay {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .weekdays { /* Weekday Labels */
@@ -84,11 +90,6 @@
   cursor: default;
 }
 
-.day:not(.selected):disabled { /* Non-selected disabled day */
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
 .selected { /* Selected Day */
   background: #0078d4;
   color: #ffffff;
@@ -96,4 +97,9 @@
 
 .empty { /* Empty Grid Cell */
   height: 32px;
+}
+
+.firstDay {
+  background-color: rgba(130, 130, 243, 0.5);
+  color: #4b4a48;
 }

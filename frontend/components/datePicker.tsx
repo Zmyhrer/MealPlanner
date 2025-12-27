@@ -4,7 +4,7 @@ import styles from "@/styles/datePicker.module.css";
 export interface DatePickerProps {
   value: Date;
   onChange: (date: Date) => void;
-  allowedWeekday: number; // 0 = Sunday
+  allowedWeekday: number;
   minDate?: Date;
   maxDate?: Date;
 }
@@ -30,15 +30,32 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     return false;
   };
 
-  const daysInMonth = (): (Date | null)[] => {
+  const daysInMonth = () => {
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth();
-    const firstDay = new Date(year, month, 1).getDay();
-    const totalDays = new Date(year, month + 1, 0).getDate();
 
-    const days: (Date | null)[] = [];
-    for (let i = 0; i < firstDay; i++) days.push(null);
-    for (let d = 1; d <= totalDays; d++) days.push(new Date(year, month, d));
+    const firstOfMonth = new Date(year, month, 1);
+    const lastOfMonth = new Date(year, month + 1, 0);
+
+    const startOffset = firstOfMonth.getDay();
+    const endOffset = 6 - lastOfMonth.getDay();
+
+    const days: { date: Date; inCurrentMonth: boolean }[] = [];
+
+    for (let i = startOffset; i > 0; i--) {
+      const d = new Date(year, month, 1 - i);
+      days.push({ date: d, inCurrentMonth: false });
+    }
+
+    for (let d = 1; d <= lastOfMonth.getDate(); d++) {
+      days.push({ date: new Date(year, month, d), inCurrentMonth: true });
+    }
+
+    for (let i = 1; i <= endOffset; i++) {
+      const d = new Date(year, month + 1, i);
+      days.push({ date: d, inCurrentMonth: false });
+    }
+
     return days;
   };
 
@@ -47,10 +64,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       new Date(currentMonth.getFullYear(), currentMonth.getMonth() + offset, 1)
     );
 
-  /** Calculates the next date matching the allowed weekday from today */
-  const goToToday = () => {
+  const goToCurrentWeek = () => {
     const today = new Date();
-    const diff = (allowedWeekday - today.getDay() + 7) % 7;
+    const diff = (allowedWeekday - today.getDay()) % 7;
     const nextAllowed = new Date(today);
     nextAllowed.setDate(today.getDate() + diff);
 
@@ -74,16 +90,18 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           ‹
         </button>
 
-        <span className={styles.title}>
-          {currentMonth.toLocaleString("default", {
-            month: "long",
-            year: "numeric",
-          })}
-        </span>
+        <div className={styles.topDisplay}>
+          <span className={styles.title}>
+            {currentMonth.toLocaleString("default", {
+              month: "long",
+              year: "numeric",
+            })}
+          </span>
 
-        <button className={styles.todayButton} onClick={goToToday}>
-          Today
-        </button>
+          <button className={styles.currentButton} onClick={goToCurrentWeek}>
+            Current
+          </button>
+        </div>
 
         <button
           className={styles.nav}
@@ -103,15 +121,20 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       </div>
 
       <div className={styles.grid}>
-        {daysInMonth().map((date, index) => {
-          if (!date) return <div key={index} className={styles.empty} />;
+        {daysInMonth().map(({ date, inCurrentMonth }) => {
           const selected =
             normalize(value).getTime() === normalize(date).getTime();
           const disabled = isDisabled(date);
+          const isFirstOfMonth = inCurrentMonth && date.getDate() === 1;
+
           return (
             <button
               key={date.toISOString()}
-              className={`${styles.day} ${selected ? styles.selected : ""}`}
+              className={`${styles.day} ${
+                !inCurrentMonth ? styles.outsideMonth : ""
+              } ${selected ? styles.selected : ""} ${
+                isFirstOfMonth ? styles.firstDay : ""
+              }`}
               disabled={disabled}
               onClick={() => !disabled && onChange(date)}
             >
