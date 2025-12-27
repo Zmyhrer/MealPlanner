@@ -1,13 +1,15 @@
-.datepicker { /* DatePicker Container */
-  width: 280px;
+.datepicker {
+  width: 100%; /* flexible width */
+  max-width: 100%;
   font-family: "Segoe UI", system-ui, sans-serif;
   background: #ffffff;
   border: 1px solid #d1d1d1;
   border-radius: 4px;
   padding: 8px;
+  box-sizing: border-box;
 }
 
-.header { /* Header (Navigation & Title) */
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,13 +17,13 @@
   margin-bottom: 6px;
 }
 
-.title { /* Month/Year Title */
+.title {
   text-align: center;
   font-size: 14px;
   font-weight: 600;
 }
 
-.nav { /* Navigation Buttons */
+.nav {
   background: none;
   border: none;
   cursor: pointer;
@@ -30,11 +32,11 @@
   font-size: 18px;
 }
 
-.nav:hover { /* Navigation hover */
+.nav:hover {
   background: #f3f2f1;
 }
 
-.currentButton { /* Current Button inline with header */
+.currentButton {
   background-color: #eee;
   border: 1px solid #ccc;
   padding: 4px 8px;
@@ -43,60 +45,65 @@
   font-size: 12px;
 }
 
-.currentButton:hover { /* Current Button hover */
+.currentButton:hover {
   background-color: #ddd;
 }
 
 .topDisplay {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.weekdays { /* Weekday Labels */
+.weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   margin-bottom: 4px;
 }
 
-.weekday { /* Individual Weekday */
+.weekday {
   text-align: center;
   font-size: 12px;
   font-weight: 600;
   color: #605e5c;
 }
 
-.grid { /* Days Grid */
+.grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
 }
 
-.day { /* Individual Day Button */
-  height: 32px;
+.day {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* ensures square buttons */
   border: none;
   background: transparent;
   cursor: pointer;
   border-radius: 4px;
   font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.day:hover:not(:disabled) { /* Day hover */
+.day:hover:not(:disabled) {
   background: #f3f2f1;
 }
 
-.day:disabled { /* Disabled day */
+.day:disabled {
   color: #a19f9d;
   cursor: default;
 }
 
-.selected { /* Selected Day */
+.selected {
   background: #0078d4;
   color: #ffffff;
 }
 
-.empty { /* Empty Grid Cell */
-  height: 32px;
+.empty {
+  width: 100%;
+  aspect-ratio: 1 / 1;
 }
 
 .firstDay {

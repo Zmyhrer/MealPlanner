@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import styles from "@/styles/dateSelection.module.css";
-import leftArrow from "@/public/left-arrow.png";
 import { DatePicker } from "./datePicker";
 
 /** Converts weekday string to numeric index (0 = Sunday) */
@@ -74,7 +73,7 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
           onClick={handleBack}
           disabled={isPickingDate}
         >
-          <Image src={leftArrow} alt="back" width={24} height={24} />
+          {"<"}
         </button>
 
         <div className={styles["date-container"]}>
@@ -97,28 +96,24 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
           onClick={handleForward}
           disabled={isPickingDate}
         >
-          <Image
-            src={leftArrow}
-            alt="forward"
-            width={24}
-            height={24}
-            style={{ transform: "rotate(180deg)" }}
-          />
+          {">"}
         </button>
       </div>
 
-      {isPickingDate && (
-        <div className={styles["date-picker"]}>
-          <DatePicker
-            value={date}
-            onChange={(newDate) => {
-              setDate(newDate);
-              setIsPickingDate(false);
-            }}
-            allowedWeekday={allowedWeekday}
-          />
-        </div>
-      )}
+      <div
+        className={`${styles["date-picker"]} ${
+          isPickingDate ? styles["open"] : ""
+        }`}
+      >
+        <DatePicker
+          value={date}
+          onChange={(newDate) => {
+            setDate(newDate);
+            setIsPickingDate(false);
+          }}
+          allowedWeekday={allowedWeekday}
+        />
+      </div>
     </div>
   );
 };
