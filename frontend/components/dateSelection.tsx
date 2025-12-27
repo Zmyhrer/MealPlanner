@@ -68,9 +68,9 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
       <div className={styles["top-container"]}>Start Date</div>
 
       <div className={styles["bottom-container"]}>
-        <div className={styles["date-back"]} onClick={handleBackButton}>
+        <button className={styles["date-back"]} onClick={handleBackButton}>
           <Image src={leftArrow} alt="back arrow" width={24} height={24} />
-        </div>
+        </button>
 
         <div className={styles["date-container"]}>
           <div className={styles["weekday-text-container"]}>
