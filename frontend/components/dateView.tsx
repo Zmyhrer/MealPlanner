@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import styles from "@/styles/dateView.module.css";
 import Image from "next/image";
 import leftArrow from "@/public/left-arrow.png";
+import Dropdown from "./dropdown";
 
 const DateView = () => {
   const views = ["1 Week", "2 Week", "1 Month"];
@@ -13,10 +14,7 @@ const DateView = () => {
     <div className={styles["container"]}>
       <div className={styles["label"]}>View</div>
       <div className={styles["display"]}>
-        <div>{views[0]}</div>
-        <div className={`${styles.icon}${isOpen ? `${styles.iconOpen}` : ""}`}>
-          <Image src={leftArrow} alt="back" width={24} height={24} />
-        </div>
+        <Dropdown options={views} selected={views[0]} onSelect={() => {}} />
       </div>
     </div>
   );

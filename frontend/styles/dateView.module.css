@@ -10,21 +10,12 @@
     height: auto;
     width: auto;
     font-size: 14px;
+    color: #555555;
 }
 
 .display {
-    display: flex;
+    display: inline;
     height: 48px;
     width: 100%;
-    justify-content: space-around;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-
-.icon {
-    rotate: 90deg;
 }
 
