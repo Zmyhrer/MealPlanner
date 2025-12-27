@@ -69,6 +69,12 @@
   cursor: default;
 }
 
+.day:not(.selected):disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+
 .selected {
   background: #0078d4;
   color: #ffffff;

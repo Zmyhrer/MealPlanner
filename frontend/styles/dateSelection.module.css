@@ -3,6 +3,7 @@
  */
 .large-container {
   width: 100%;
+  position: relative;
   max-width: 185px;
   margin: 0 auto;
   display: flex;
@@ -22,6 +23,7 @@
  * Bottom row containing arrows and date
  */
 .bottom-container {
+  height: 48px;
   position: relative;
   display: flex;
   align-items: center;
@@ -29,6 +31,11 @@
   border-radius: 8px;
   border: 1px solid #ddd;
   background-color: #fff;
+  user-select: none;        /* Standard */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE/Edge */
+  overflow: hidden;
 }
 
 /**
@@ -77,23 +84,31 @@
 }
 
 /**
- * Left arrow container
+ * Arrow container
  */
-.date-back {
+.date-back, .date-forward {
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
 
+.date-back:hover, .date-forward:hover {
+  background-color: rgba(130, 130, 243, 0.5);
+  
+}
+
 /**
- * Right arrow container
+ * Date Picking container
  */
-.date-forward {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+.date-picker {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  box-Shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: #fff;
 }
 
 /**
@@ -107,11 +122,15 @@
   .weekday-text-container{
     display: none;
   }
+
+  .date-container {
+    padding-top: 0px;
+  }
 }
 
 /**
  * Small phones
  */
 @media (max-width: 480px){
-  
+
 }

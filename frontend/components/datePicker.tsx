@@ -1,64 +1,51 @@
 import React, { useState } from "react";
 import styles from "@/styles/datePicker.module.css";
 
-/**
- * Props for the Fluent-style DatePicker.
- */
 export interface DatePickerProps {
-  value?: Date | null;
+  value: Date;
   onChange: (date: Date) => void;
+  allowedWeekday: number; // 0 = Sunday
   minDate?: Date;
   maxDate?: Date;
 }
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-/**
- * Fluent-inspired Date Picker component.
- */
 export const DatePicker: React.FC<DatePickerProps> = ({
   value,
   onChange,
+  allowedWeekday,
   minDate,
   maxDate,
 }) => {
-  const [currentMonth, setCurrentMonth] = useState<Date>(value ?? new Date());
+  const [currentMonth, setCurrentMonth] = useState<Date>(value);
 
   const normalize = (d: Date) =>
     new Date(d.getFullYear(), d.getMonth(), d.getDate());
 
-  const isDisabled = (date: Date): boolean => {
+  const isDisabled = (date: Date) => {
+    if (date.getDay() !== allowedWeekday) return true;
     if (minDate && normalize(date) < normalize(minDate)) return true;
     if (maxDate && normalize(date) > normalize(maxDate)) return true;
     return false;
   };
 
-  const daysInMonth = () => {
+  const daysInMonth = (): (Date | null)[] => {
     const year = currentMonth.getFullYear();
     const month = currentMonth.getMonth();
-
     const firstDay = new Date(year, month, 1).getDay();
     const totalDays = new Date(year, month + 1, 0).getDate();
 
     const days: (Date | null)[] = [];
-
-    // Empty slots for alignment
-    for (let i = 0; i < firstDay; i++) {
-      days.push(null);
-    }
-
-    for (let d = 1; d <= totalDays; d++) {
-      days.push(new Date(year, month, d));
-    }
-
+    for (let i = 0; i < firstDay; i++) days.push(null);
+    for (let d = 1; d <= totalDays; d++) days.push(new Date(year, month, d));
     return days;
   };
 
-  const changeMonth = (offset: number) => {
+  const changeMonth = (offset: number) =>
     setCurrentMonth(
       new Date(currentMonth.getFullYear(), currentMonth.getMonth() + offset, 1)
     );
-  };
 
   return (
     <div className={styles.datepicker}>
@@ -70,14 +57,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         >
           ‹
         </button>
-
         <span className={styles.title}>
           {currentMonth.toLocaleString("default", {
             month: "long",
             year: "numeric",
           })}
         </span>
-
         <button
           className={styles.nav}
           onClick={() => changeMonth(1)}
@@ -87,7 +72,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         </button>
       </div>
 
-      {/* Weekday Header */}
       <div className={styles.weekdays}>
         {WEEKDAYS.map((day) => (
           <div key={day} className={styles.weekday}>
@@ -96,18 +80,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         ))}
       </div>
 
-      {/* Days Grid */}
       <div className={styles.grid}>
         {daysInMonth().map((date, index) => {
-          if (!date) {
-            return <div key={index} className={styles.empty} />;
-          }
-
+          if (!date) return <div key={index} className={styles.empty} />;
           const selected =
-            value && normalize(value).getTime() === normalize(date).getTime();
-
+            normalize(value).getTime() === normalize(date).getTime();
           const disabled = isDisabled(date);
-
           return (
             <button
               key={date.toISOString()}

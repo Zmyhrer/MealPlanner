@@ -4,12 +4,11 @@ import React, { useState } from "react";
 import Image from "next/image";
 import styles from "@/styles/dateSelection.module.css";
 import leftArrow from "@/public/left-arrow.png";
+import { DatePicker } from "./datePicker";
 
-const getDateForWeekday = (
-  targetDayName: string,
-  fromDate: Date = new Date()
-): Date => {
-  const daysOfWeek = [
+/** Converts weekday string to numeric index (0 = Sunday) */
+const getWeekdayNumber = (weekday: string): number => {
+  const days = [
     "Sunday",
     "Monday",
     "Tuesday",
@@ -18,48 +17,46 @@ const getDateForWeekday = (
     "Friday",
     "Saturday",
   ];
-  const targetIndex = daysOfWeek.indexOf(targetDayName);
-  if (targetIndex === -1) throw new Error("Invalid weekday name");
+  const index = days.indexOf(weekday);
+  if (index === -1) throw new Error("Invalid weekday");
+  return index;
+};
 
-  const currentIndex = fromDate.getDay();
-  let diff = targetIndex - currentIndex;
-  if (diff < 0) diff += 7; // Go forward to next occurrence
-
-  const newDate = new Date(fromDate);
-  newDate.setDate(fromDate.getDate() + diff);
-  return newDate;
+/** Returns the next date matching the target weekday */
+const getNextWeekdayDate = (
+  weekdayIndex: number,
+  fromDate: Date = new Date()
+): Date => {
+  const diff = (weekdayIndex - fromDate.getDay() + 7) % 7;
+  const date = new Date(fromDate);
+  date.setDate(fromDate.getDate() + diff);
+  return date;
 };
 
 interface DateSelectionProps {
-  weekday: string; // Only accept a string like "Sunday"
+  weekday: string;
 }
 
 const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
-  const [date, setDate] = useState<Date>(getDateForWeekday(weekday));
+  const allowedWeekday = getWeekdayNumber(weekday);
+  const [date, setDate] = useState(() => getNextWeekdayDate(allowedWeekday));
+  const [isPickingDate, setIsPickingDate] = useState(false);
 
-  // Format weekday
-  const formatWeekday = (d: Date): string =>
-    d.toLocaleDateString("en-US", { weekday: "long" });
-
-  // Format month/day
-  const formatMonthDay = (d: Date): string =>
-    d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-
-  // Navigate one week backward
-  const handleBackButton = () => {
+  const handleBack = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setDate((prev) => {
-      const newDate = new Date(prev);
-      newDate.setDate(prev.getDate() - 7);
-      return newDate;
+      const d = new Date(prev);
+      d.setDate(prev.getDate() - 7);
+      return d;
     });
   };
 
-  // Navigate one week forward
-  const handleForwardButton = () => {
+  const handleForward = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setDate((prev) => {
-      const newDate = new Date(prev);
-      newDate.setDate(prev.getDate() + 7);
-      return newDate;
+      const d = new Date(prev);
+      d.setDate(prev.getDate() + 7);
+      return d;
     });
   };
 
@@ -67,33 +64,60 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
     <div className={styles["large-container"]}>
       <div className={styles["top-container"]}>Start Date</div>
 
-      <div className={styles["bottom-container"]}>
-        <button className={styles["date-back"]} onClick={handleBackButton}>
-          <Image src={leftArrow} alt="back arrow" width={24} height={24} />
+      <div
+        className={styles["bottom-container"]}
+        onClick={() => setIsPickingDate((prev) => !prev)}
+      >
+        <button
+          className={styles["date-back"]}
+          onClick={handleBack}
+          disabled={isPickingDate}
+        >
+          <Image src={leftArrow} alt="back" width={24} height={24} />
         </button>
 
         <div className={styles["date-container"]}>
           <div className={styles["weekday-text-container"]}>
-            {formatWeekday(date)}
+            {date.toLocaleDateString("en-US", { weekday: "long" })}
           </div>
           <div className={styles["year-text-container"]}>
             {date.getFullYear()}
           </div>
           <div className={styles["date-text-container"]}>
-            {formatMonthDay(date)}
+            {date.toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+            })}
           </div>
         </div>
 
-        <div className={styles["date-forward"]} onClick={handleForwardButton}>
+        <button
+          className={styles["date-forward"]}
+          onClick={handleForward}
+          disabled={isPickingDate}
+        >
           <Image
             src={leftArrow}
-            alt="forward arrow"
+            alt="forward"
             width={24}
             height={24}
             style={{ transform: "rotate(180deg)" }}
           />
-        </div>
+        </button>
       </div>
+
+      {isPickingDate && (
+        <div className={styles["date-picker"]}>
+          <DatePicker
+            value={date}
+            onChange={(newDate) => {
+              setDate(newDate);
+              setIsPickingDate(false);
+            }}
+            allowedWeekday={allowedWeekday}
+          />
+        </div>
+      )}
     </div>
   );
 };
