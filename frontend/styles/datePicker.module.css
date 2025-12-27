@@ -1,4 +1,4 @@
-.datepicker {
+.datepicker { /* DatePicker Container */
   width: 280px;
   font-family: "Segoe UI", system-ui, sans-serif;
   background: #ffffff;
@@ -7,19 +7,21 @@
   padding: 8px;
 }
 
-.header {
+.header { /* Header (Navigation & Title) */
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
   margin-bottom: 6px;
 }
 
-.title {
+.title { /* Month/Year Title */
+  flex: 1;
+  text-align: center;
   font-size: 14px;
   font-weight: 600;
 }
 
-.nav {
+.nav { /* Navigation Buttons */
   background: none;
   border: none;
   cursor: pointer;
@@ -28,30 +30,43 @@
   font-size: 18px;
 }
 
-.nav:hover {
+.nav:hover { /* Navigation hover */
   background: #f3f2f1;
 }
 
-.weekdays {
+.todayButton { /* Today Button inline with header */
+  background-color: #eee;
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.todayButton:hover { /* Today Button hover */
+  background-color: #ddd;
+}
+
+.weekdays { /* Weekday Labels */
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   margin-bottom: 4px;
 }
 
-.weekday {
+.weekday { /* Individual Weekday */
   text-align: center;
   font-size: 12px;
   font-weight: 600;
   color: #605e5c;
 }
 
-.grid {
+.grid { /* Days Grid */
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
 }
 
-.day {
+.day { /* Individual Day Button */
   height: 32px;
   border: none;
   background: transparent;
@@ -60,26 +75,25 @@
   font-size: 13px;
 }
 
-.day:hover:not(:disabled) {
+.day:hover:not(:disabled) { /* Day hover */
   background: #f3f2f1;
 }
 
-.day:disabled {
+.day:disabled { /* Disabled day */
   color: #a19f9d;
   cursor: default;
 }
 
-.day:not(.selected):disabled {
+.day:not(.selected):disabled { /* Non-selected disabled day */
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-
-.selected {
+.selected { /* Selected Day */
   background: #0078d4;
   color: #ffffff;
 }
 
-.empty {
+.empty { /* Empty Grid Cell */
   height: 32px;
 }

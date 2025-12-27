@@ -47,6 +47,22 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       new Date(currentMonth.getFullYear(), currentMonth.getMonth() + offset, 1)
     );
 
+  /** Calculates the next date matching the allowed weekday from today */
+  const goToToday = () => {
+    const today = new Date();
+    const diff = (allowedWeekday - today.getDay() + 7) % 7;
+    const nextAllowed = new Date(today);
+    nextAllowed.setDate(today.getDate() + diff);
+
+    if (minDate && nextAllowed < normalize(minDate))
+      nextAllowed.setTime(normalize(minDate).getTime());
+    if (maxDate && nextAllowed > normalize(maxDate))
+      nextAllowed.setTime(normalize(maxDate).getTime());
+
+    onChange(nextAllowed);
+    setCurrentMonth(nextAllowed);
+  };
+
   return (
     <div className={styles.datepicker}>
       <div className={styles.header}>
@@ -57,12 +73,18 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         >
           ‹
         </button>
+
         <span className={styles.title}>
           {currentMonth.toLocaleString("default", {
             month: "long",
             year: "numeric",
           })}
         </span>
+
+        <button className={styles.todayButton} onClick={goToToday}>
+          Today
+        </button>
+
         <button
           className={styles.nav}
           onClick={() => changeMonth(1)}
