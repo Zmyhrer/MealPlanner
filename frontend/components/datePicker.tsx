@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "@/styles/datePicker.module.css";
 
 export interface DatePickerProps {
@@ -19,6 +19,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   maxDate,
 }) => {
   const [currentMonth, setCurrentMonth] = useState<Date>(value);
+
+  useEffect(() => {
+    setCurrentMonth(new Date(value.getFullYear(), value.getMonth(), 1));
+  }, [value]);
 
   const normalize = (d: Date) =>
     new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -92,10 +96,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
         <div className={styles["topDisplay"]}>
           <span className={styles["title"]}>
-            {currentMonth.toLocaleString("default", {
-              month: "long",
-              year: "numeric",
-            })}
+            {`${value.toLocaleString("default", { month: "short" })} '${value
+              .getFullYear()
+              .toString()
+              .slice(-2)}`}
           </span>
 
           <button className={styles["currentButton"]} onClick={goToCurrentWeek}>

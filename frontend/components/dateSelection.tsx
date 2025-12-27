@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "@/styles/dateSelection.module.css";
 import { DatePicker } from "./datePicker";
 
@@ -36,11 +35,25 @@ interface DateSelectionProps {
   weekday: string;
 }
 
-// Component Start
 const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
   const allowedWeekday = getWeekdayNumber(weekday);
   const [date, setDate] = useState(() => getNextWeekdayDate(allowedWeekday));
   const [isPickingDate, setIsPickingDate] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  /** Close datepicker when clicking outside */
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsPickingDate(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleBack = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -60,8 +73,10 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
     });
   };
 
+  const formatYear = (d: Date) => `'${d.getFullYear().toString().slice(-2)}`;
+
   return (
-    <div className={styles["large-container"]}>
+    <div className={styles["large-container"]} ref={containerRef}>
       <div className={styles["top-container"]}>Start Date</div>
 
       <div
@@ -81,7 +96,7 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
             {date.toLocaleDateString("en-US", { weekday: "long" })}
           </div>
           <div className={styles["year-text-container"]}>
-            {date.getFullYear()}
+            {formatYear(date)}
           </div>
           <div className={styles["date-text-container"]}>
             {date.toLocaleDateString("en-US", {
