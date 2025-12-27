@@ -1,0 +1,42 @@
+.dropdownContainer {
+  position: relative;
+  width: 150px;
+  user-select: none;
+}
+
+.dropdownDisplay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.icon {
+  transition: transform 0.2s ease;
+}
+
+.icon.open {
+  transform: rotate(180deg);
+}
+
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 10;
+}
+
+.dropdownOption {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdownOption:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
