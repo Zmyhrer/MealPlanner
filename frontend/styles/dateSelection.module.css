@@ -1,7 +1,4 @@
-/**
- * Outer container for the entire date selection component
- */
-.large-container {
+.large-container { /* Outer container for the entire date selection component */
   width: 100%;
   position: relative;
   max-width: 185px;
@@ -10,19 +7,13 @@
   flex-direction: column;
 }
 
-/**
- * Top label (e.g., "Start Date")
- */
-.top-container {
+.top-container { /* Top label (e.g., "Start Date") */
   font-size: 14px;
   font-weight: 500;
   color: #555;
 }
 
-/**
- * Bottom row containing arrows and date
- */
-.bottom-container {
+.bottom-container { /* Bottom row containing arrows and date */
   height: 48px;
   position: relative;
   display: flex;
@@ -38,10 +29,7 @@
   overflow: hidden;
 }
 
-/**
- * Center date container
- */
-.date-container {
+.date-container { /* Center date container */
   position: relative;
   flex: 1;
   display: flex;
@@ -50,43 +38,34 @@
   padding-top: 10px;
 }
 
-.weekday-text-container {
+.weekday-text-container { /* Weekday text (top-left) */
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   font-size: 10px;
   color: #888;
   z-index: 2;
   pointer-events: none;
 }
 
-/**
- * Year text (top-right corner)
- */
-.year-text-container {
+.year-text-container { /* Year text (top-right) */
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
   font-size: 10px;
   color: #888;
   z-index: 2;
   pointer-events: none;
 }
 
-/**
- * Date text
- */
-.date-text-container {
+.date-text-container { /* Date text */
   font-size: 24px;
   font-weight: 600;
   color: #222;
   z-index: 1;
 }
 
-/**
- * Arrow container
- */
-.date-back, .date-forward {
+.date-back, .date-forward { /* Arrow containers */
   height: 100%;
   display: flex;
   align-items: center;
@@ -94,43 +73,34 @@
   cursor: pointer;
 }
 
-.date-back:hover, .date-forward:hover {
+.date-back:hover, .date-forward:hover { /* Arrow hover effect */
   background-color: rgba(130, 130, 243, 0.5);
-  
 }
 
-/**
- * Date Picking container
- */
-.date-picker {
+.date-picker { /* Date picking container */
   position: absolute;
   top: 100%;
   left: 0;
   z-index: 1000;
-  box-Shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   background: #fff;
 }
 
-/**
- * Tablets
- */
-@media (max-width: 768px){
-  .year-text-container{
+/* =========================
+   Responsive Styles
+   ========================= */
+@media (max-width: 768px) { /* Tablets */
+  .year-text-container {
     display: none;
   }
-
-  .weekday-text-container{
+  .weekday-text-container {
     display: none;
   }
-
   .date-container {
-    padding-top: 0px;
+    padding-top: 0;
   }
 }
 
-/**
- * Small phones
- */
-@media (max-width: 480px){
-
+@media (max-width: 480px) { /* Small phones */
+  /* Additional mobile adjustments can be added here */
 }
