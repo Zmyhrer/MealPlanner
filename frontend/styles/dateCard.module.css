@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: auto;
+    border: 1px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    height: 40px;
+    width: 100%;
+    font-size: 24px;
+    border-bottom: 1px solid black;
+    justify-content: center;
+    align-items: center;
+}
+
+.mealList {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+}

@@ -4,9 +4,49 @@
     margin: 10px;
 }
 
-.date-view {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    align-items: center;
+.planContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+.dateView {
+  display: flex;
+  gap: 16px;
+}
+
+.datePlan {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+
+.searchSelection {
+  margin-top: 16px;
+}
+
+.mealsList {
+  margin-top: 8px;
+}
+
+
+@media (max-width: 992px) {
+    .datePlan {
+
+    }
+}
+
+
+@media (max-width: 768px) {
+    .datePlan {
+       
+    }
+}
+
+@media (max-width: 576px) {
+    .datePlan {
+        
+    }
 }

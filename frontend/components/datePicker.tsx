@@ -66,6 +66,33 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     );
   };
 
+  const getClosestValidDateToToday = () => {
+    const today = new Date();
+    if (!isDisabled(today)) return today;
+
+    let offset = 1;
+    while (offset < 365) {
+      // search up to 1 year ahead/back
+      const forward = new Date(today);
+      forward.setDate(today.getDate() + offset);
+      if (!isDisabled(forward)) return forward;
+
+      const backward = new Date(today);
+      backward.setDate(today.getDate() - offset);
+      if (!isDisabled(backward)) return backward;
+
+      offset--;
+    }
+
+    return today; // fallback if no valid date found within 1 year
+  };
+
+  const handleToday = () => {
+    const closest = getClosestValidDateToToday();
+    onChange(closest);
+    setViewMonth(new Date(closest.getFullYear(), closest.getMonth(), 1));
+  };
+
   return (
     <div className={styles.datepicker}>
       <div className={styles.header}>
@@ -76,7 +103,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         <div className={styles.topDisplay}>
           <span className={styles.title}>
             {viewMonth.toLocaleString("default", { month: "short" })}{" "}
-            {viewMonth.getFullYear().toString().slice(-2)}
+            {"'" + (viewMonth.getFullYear() % 100).toString().padStart(2, "0")}
           </span>
         </div>
 
@@ -114,6 +141,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({
             </button>
           );
         })}
+      </div>
+
+      <div className={styles.todayButtonContainer}>
+        <button className={styles.todayButton} onClick={handleToday}>
+          Today
+        </button>
       </div>
     </div>
   );
