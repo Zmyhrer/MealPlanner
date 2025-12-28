@@ -98,12 +98,15 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           const selected =
             normalize(date).getTime() === normalize(value).getTime();
 
+          const isFirstOfMonth = inCurrentMonth && date.getDate() === 1;
+
           return (
             <button
               key={date.toISOString()}
-              className={`${styles.day} ${
-                !inCurrentMonth ? styles.outsideMonth : ""
-              } ${selected ? styles.selected : ""}`}
+              className={`${styles.day}
+                ${!inCurrentMonth ? styles.outsideMonth : ""}
+                ${selected ? styles.selected : ""}
+                ${isFirstOfMonth ? styles.firstDay : ""}`}
               disabled={isDisabled(date)}
               onClick={() => onChange(date)}
             >

@@ -57,6 +57,7 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
   }, []);
 
   const handleBack = (e: React.MouseEvent) => {
+    remountDatePicker();
     e.stopPropagation();
     setDate((prev) => {
       const d = new Date(prev);
@@ -66,6 +67,7 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
   };
 
   const handleForward = (e: React.MouseEvent) => {
+    remountDatePicker();
     e.stopPropagation();
     setDate((prev) => {
       const d = new Date(prev);
@@ -75,13 +77,13 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
   };
 
   const handleDisplayClick = () => {
-    openDatePicker();
+    remountDatePicker();
     setIsPickingDate((prev) => !prev);
   };
 
   const formatYear = (d: Date) => `'${d.getFullYear().toString().slice(-2)}`;
 
-  const openDatePicker = () => {
+  const remountDatePicker = () => {
     setPickerKey((k) => k + 1);
   };
 
@@ -90,11 +92,7 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
       <div className={styles["label"]}>Start Date</div>
 
       <div className={styles["display"]} onClick={handleDisplayClick}>
-        <button
-          className={styles["date-back"]}
-          onClick={handleBack}
-          disabled={isPickingDate}
-        >
+        <button className={styles["date-back"]} onClick={handleBack}>
           {"<"}
         </button>
 
@@ -113,11 +111,7 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
           </div>
         </div>
 
-        <button
-          className={styles["date-forward"]}
-          onClick={handleForward}
-          disabled={isPickingDate}
-        >
+        <button className={styles["date-forward"]} onClick={handleForward}>
           {">"}
         </button>
       </div>
