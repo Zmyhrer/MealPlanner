@@ -40,6 +40,7 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
   const [date, setDate] = useState(() => getNextWeekdayDate(allowedWeekday));
   const [isPickingDate, setIsPickingDate] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [pickerKey, setPickerKey] = useState(0);
 
   /** Close datepicker when clicking outside */
   useEffect(() => {
@@ -73,16 +74,22 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
     });
   };
 
+  const handleDisplayClick = () => {
+    openDatePicker();
+    setIsPickingDate((prev) => !prev);
+  };
+
   const formatYear = (d: Date) => `'${d.getFullYear().toString().slice(-2)}`;
+
+  const openDatePicker = () => {
+    setPickerKey((k) => k + 1);
+  };
 
   return (
     <div className={styles["large-container"]} ref={containerRef}>
-      <div className={styles["top-container"]}>Start Date</div>
+      <div className={styles["label"]}>Start Date</div>
 
-      <div
-        className={styles["bottom-container"]}
-        onClick={() => setIsPickingDate((prev) => !prev)}
-      >
+      <div className={styles["display"]} onClick={handleDisplayClick}>
         <button
           className={styles["date-back"]}
           onClick={handleBack}
@@ -121,6 +128,7 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
         }`}
       >
         <DatePicker
+          key={pickerKey}
           value={date}
           onChange={(newDate) => {
             setDate(newDate);

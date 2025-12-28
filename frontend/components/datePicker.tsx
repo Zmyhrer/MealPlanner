@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "@/styles/datePicker.module.css";
 
 export interface DatePickerProps {
@@ -18,11 +18,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   minDate,
   maxDate,
 }) => {
-  const [currentMonth, setCurrentMonth] = useState<Date>(value);
-
-  useEffect(() => {
-    setCurrentMonth(new Date(value.getFullYear(), value.getMonth(), 1));
-  }, [value]);
+  const [viewMonth, setViewMonth] = useState(
+    () => new Date(value.getFullYear(), value.getMonth(), 1)
+  );
 
   const normalize = (d: Date) =>
     new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -35,112 +33,79 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   };
 
   const daysInMonth = () => {
-    const year = currentMonth.getFullYear();
-    const month = currentMonth.getMonth();
+    const year = viewMonth.getFullYear();
+    const month = viewMonth.getMonth();
 
-    const firstOfMonth = new Date(year, month, 1);
-    const lastOfMonth = new Date(year, month + 1, 0);
+    const first = new Date(year, month, 1);
+    const last = new Date(year, month + 1, 0);
 
-    const startOffset = firstOfMonth.getDay();
-    const endOffset = 6 - lastOfMonth.getDay();
+    const startOffset = first.getDay();
+    const totalDays = last.getDate();
 
     const days: { date: Date; inCurrentMonth: boolean }[] = [];
 
     for (let i = startOffset; i > 0; i--) {
-      const d = new Date(year, month, 1 - i);
-      days.push({ date: d, inCurrentMonth: false });
+      days.push({ date: new Date(year, month, 1 - i), inCurrentMonth: false });
     }
 
-    for (let d = 1; d <= lastOfMonth.getDate(); d++) {
+    for (let d = 1; d <= totalDays; d++) {
       days.push({ date: new Date(year, month, d), inCurrentMonth: true });
     }
 
-    for (let i = 1; i <= endOffset; i++) {
-      const d = new Date(year, month + 1, i);
-      days.push({ date: d, inCurrentMonth: false });
+    while (days.length < 42) {
+      const next = new Date(year, month, days.length - startOffset + 1);
+      days.push({ date: next, inCurrentMonth: false });
     }
 
     return days;
   };
 
-  const changeMonth = (offset: number) =>
-    setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + offset, 1)
+  const changeMonth = (offset: number) => {
+    setViewMonth(
+      new Date(viewMonth.getFullYear(), viewMonth.getMonth() + offset, 1)
     );
-
-  const goToCurrentWeek = () => {
-    const today = new Date();
-    const diff = (allowedWeekday - today.getDay()) % 7;
-    const nextAllowed = new Date(today);
-    nextAllowed.setDate(today.getDate() + diff);
-
-    if (minDate && nextAllowed < normalize(minDate))
-      nextAllowed.setTime(normalize(minDate).getTime());
-    if (maxDate && nextAllowed > normalize(maxDate))
-      nextAllowed.setTime(normalize(maxDate).getTime());
-
-    onChange(nextAllowed);
-    setCurrentMonth(nextAllowed);
   };
 
   return (
-    <div className={styles["datepicker"]}>
-      <div className={styles["header"]}>
-        <button
-          className={styles["nav"]}
-          onClick={() => changeMonth(-1)}
-          aria-label="Previous month"
-        >
+    <div className={styles.datepicker}>
+      <div className={styles.header}>
+        <button onClick={() => changeMonth(-1)} className={styles.nav}>
           ‹
         </button>
 
-        <div className={styles["topDisplay"]}>
-          <span className={styles["title"]}>
-            {`${value.toLocaleString("default", { month: "short" })} '${value
-              .getFullYear()
-              .toString()
-              .slice(-2)}`}
+        <div className={styles.topDisplay}>
+          <span className={styles.title}>
+            {viewMonth.toLocaleString("default", { month: "short" })}{" "}
+            {viewMonth.getFullYear().toString().slice(-2)}
           </span>
-
-          <button className={styles["currentButton"]} onClick={goToCurrentWeek}>
-            Current
-          </button>
         </div>
 
-        <button
-          className={styles["nav"]}
-          onClick={() => changeMonth(1)}
-          aria-label="Next month"
-        >
+        <button onClick={() => changeMonth(1)} className={styles.nav}>
           ›
         </button>
       </div>
 
-      <div className={styles["weekdays"]}>
-        {WEEKDAYS.map((day) => (
-          <div key={day} className={styles["weekday"]}>
-            {day}
+      <div className={styles.weekdays}>
+        {WEEKDAYS.map((d) => (
+          <div key={d} className={styles.weekday}>
+            {d}
           </div>
         ))}
       </div>
 
-      <div className={styles["grid"]}>
+      <div className={styles.grid}>
         {daysInMonth().map(({ date, inCurrentMonth }) => {
           const selected =
-            normalize(value).getTime() === normalize(date).getTime();
-          const disabled = isDisabled(date);
-          const isFirstOfMonth = inCurrentMonth && date.getDate() === 1;
+            normalize(date).getTime() === normalize(value).getTime();
 
           return (
             <button
               key={date.toISOString()}
-              className={`${styles["day"]} ${
-                !inCurrentMonth ? styles["outsideMonth"] : ""
-              } ${selected ? styles["selected"] : ""} ${
-                isFirstOfMonth ? styles["firstDay"] : ""
-              }`}
-              disabled={disabled}
-              onClick={() => !disabled && onChange(date)}
+              className={`${styles.day} ${
+                !inCurrentMonth ? styles.outsideMonth : ""
+              } ${selected ? styles.selected : ""}`}
+              disabled={isDisabled(date)}
+              onClick={() => onChange(date)}
             >
               {date.getDate()}
             </button>

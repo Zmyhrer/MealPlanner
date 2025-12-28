@@ -85,7 +85,7 @@
 
 .day {
   width: 100%;
-  aspect-ratio: 1 / 1; /* ensures square buttons */
+  aspect-ratio: 1 / 1;
   border: none;
   background: transparent;
   cursor: pointer;
