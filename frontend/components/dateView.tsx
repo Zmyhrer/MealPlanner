@@ -7,7 +7,8 @@ import Dropdown from "./dropdown";
 export enum Duration {
   OneWeek = "1 week",
   TwoWeeks = "2 weeks",
-  OneMonth = "1 month",
+  ThreeWeeks = "3 weeks",
+  FourWeeks = "4 weeks",
 }
 
 type DateViewProps = {
