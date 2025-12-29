@@ -72,16 +72,11 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
     let offset = 1;
     while (offset < 365) {
-      // search up to 1 year ahead/back
-      const forward = new Date(today);
-      forward.setDate(today.getDate() + offset);
-      if (!isDisabled(forward)) return forward;
-
       const backward = new Date(today);
       backward.setDate(today.getDate() - offset);
       if (!isDisabled(backward)) return backward;
 
-      offset--;
+      offset++;
     }
 
     return today; // fallback if no valid date found within 1 year
@@ -143,9 +138,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         })}
       </div>
 
-      <div className={styles.todayButtonContainer}>
-        <button className={styles.todayButton} onClick={handleToday}>
-          Today
+      <div className={styles.thisWeekContainer}>
+        <button className={styles.thisWeekButton} onClick={handleToday}>
+          This Week
         </button>
       </div>
     </div>
