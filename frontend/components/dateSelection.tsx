@@ -81,7 +81,7 @@ const DateSelection: React.FC<DateSelectionProps> = ({ weekday }) => {
     setIsPickingDate((prev) => !prev);
   };
 
-  const formatYear = (d: Date) => `'${d.getFullYear().toString().slice(-2)}`;
+  const formatYear = (d: Date) => d.getFullYear();
 
   const remountDatePicker = () => {
     setPickerKey((k) => k + 1);
