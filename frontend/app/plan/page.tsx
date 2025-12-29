@@ -33,7 +33,7 @@ const Page = () => {
 
       <div className={styles.datePlan}>
         {visibleDates.map((date) => (
-          <DateCard key={date.toISOString()} />
+          <DateCard key={date.toISOString()} date={date} />
         ))}
       </div>
 
