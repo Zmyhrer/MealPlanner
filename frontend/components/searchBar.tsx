@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import styles from "../styles/searchBar.module.css";
 
-const searchBar = () => {
+const SearchBar = () => {
   return (
     <div className={styles["container"]}>
       <div className={styles["icon"]}>
@@ -18,4 +18,4 @@ const searchBar = () => {
   );
 };
 
-export default searchBar;
+export default SearchBar;
