@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import Styles from "../../styles/meals.module.css";
 import SearchBar from "@/components/searchBar";
 import MealList from "@/components/mealList";
@@ -9,6 +9,7 @@ import AddMealForm from "@/components/addMealForm";
 
 const Page = () => {
   const [isAddMeal, setIsAddMeal] = useState<boolean>(false);
+  const [filterText, setFilterText] = useState<string>("");
 
   const handleAddMealButton = () => {
     setIsAddMeal((prev) => !prev);
@@ -131,14 +132,22 @@ const Page = () => {
     <div className={Styles["grid-container"]}>
       <div className={Styles["top-container"]}>
         <div className={Styles["left-container"]}>
-          <SearchBar />
+          <SearchBar
+            value={filterText}
+            placeholder={"Search Meals"}
+            onChange={(value: string) => setFilterText(value)}
+          />
         </div>
         <div className={Styles["right-container"]}>
           <AddMealButton onClick={handleAddMealButton} isActive={isAddMeal} />
         </div>
       </div>
       <div className={Styles["bottom-container"]}>
-        {isAddMeal ? <AddMealForm /> : <MealList meals={meals} />}
+        {isAddMeal ? (
+          <AddMealForm />
+        ) : (
+          <MealList meals={meals} filterText={filterText} />
+        )}
       </div>
     </div>
   );

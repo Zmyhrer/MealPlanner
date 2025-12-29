@@ -10,12 +10,12 @@
 }
 
 .today {
-    border: 5px solid rgb(175, 0, 175);
+  border: 5px solid rgb(175, 0, 175);
 
-    .header {
-        color: rgb(175, 0, 175);
-        height: 36px;
-    }
+  .header {
+    color: rgb(175, 0, 175);
+    height: 36px;
+  }
 }
 
 .header {
@@ -24,11 +24,9 @@
   justify-content: center;
   height: 40px;
   width: 100%;
-  padding-top: 20px;
-  padding-bottom: 8px;
   font-size: 24px;
   border-bottom: 1px solid black;
-  position: relative
+  position: relative;
 }
 
 .dateDisplay {
@@ -43,6 +41,3 @@
   overflow-y: auto;
   padding: 8px;
 }
-
-
-

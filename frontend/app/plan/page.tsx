@@ -125,6 +125,8 @@ const Page = () => {
     { name: "BBQ Pulled Pork Tacos", calories: 620 },
   ];
 
+  const [filterText, setFilterText] = useState<string>("");
+
   // Helper to define which dates are valid
   const isDisabled = (date: Date) => date.getDay() !== 0; // Only allow Sundays
 
@@ -188,13 +190,17 @@ const Page = () => {
 
       <div className={styles.searchSelection}>
         <ContainerLabel label="Meals">
-          <SearchBar />
+          <SearchBar
+            value={filterText}
+            placeholder={"Search Meals"}
+            onChange={(value: string) => setFilterText(value)}
+          />
         </ContainerLabel>
 
         <MealTimes />
       </div>
       <div className={styles.mealsList}>
-        <MealList meals={meals} />
+        <MealList meals={meals} filterText={filterText} />
       </div>
     </div>
   );
