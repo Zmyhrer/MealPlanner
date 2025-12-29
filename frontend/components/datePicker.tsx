@@ -98,7 +98,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         <div className={styles.topDisplay}>
           <span className={styles.title}>
             {viewMonth.toLocaleString("default", { month: "short" })}{" "}
-            {"'" + (viewMonth.getFullYear() % 100).toString().padStart(2, "0")}
+            {viewMonth.getFullYear()}
           </span>
         </div>
 
