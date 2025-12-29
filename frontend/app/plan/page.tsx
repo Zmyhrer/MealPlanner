@@ -7,6 +7,7 @@ import DateView, { Duration } from "@/components/dateView";
 import DateCard from "@/components/dateCard";
 import { select } from "framer-motion/client";
 import SearchBar from "@/components/searchBar";
+import ContainerLabel from "@/components/containerLabel";
 
 const Page = () => {
   // Helper to define which dates are valid
@@ -71,7 +72,9 @@ const Page = () => {
       </div>
 
       <div className={styles.searchSelection}>
-        <SearchBar />
+        <ContainerLabel label="Meals">
+          <SearchBar />
+        </ContainerLabel>
       </div>
       <div className={styles.mealsList}>meal-list</div>
     </div>
