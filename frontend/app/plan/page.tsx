@@ -5,24 +5,57 @@ import styles from "@/styles/plan.module.css";
 import DateSelection from "@/components/dateSelection";
 import DateView, { Duration } from "@/components/dateView";
 import DateCard from "@/components/dateCard";
+import { select } from "framer-motion/client";
 
 const Page = () => {
+  // Helper to define which dates are valid
+  const isDisabled = (date: Date) => date.getDay() !== 0; // Only allow Sundays
+
+  // Function to get closest valid date to today
+  const getClosestValidDateToToday = (
+    isDisabledFn: (date: Date) => boolean
+  ) => {
+    const today = new Date();
+    if (!isDisabledFn(today)) return today;
+
+    for (let offset = 1; offset <= 365; offset++) {
+      const forward = new Date(today);
+      forward.setDate(today.getDate() + offset);
+      if (!isDisabledFn(forward)) return forward;
+
+      const backward = new Date(today);
+      backward.setDate(today.getDate() - offset);
+      if (!isDisabledFn(backward)) return backward;
+    }
+
+    return today; // fallback
+  };
+
+  const [selectedDate, setSelectedDate] = useState<Date>(() =>
+    getClosestValidDateToToday(isDisabled)
+  );
+  const [view, setView] = useState<Duration>(Duration.OneWeek);
+
+  // Generate days
   const numDays = 31;
-  const today = new Date();
   const dates = Array.from({ length: numDays }, (_, i) => {
-    const d = new Date(today);
-    d.setDate(today.getDate() + i);
+    const d = new Date(selectedDate);
+    d.setDate(selectedDate.getDate() + i);
     return d;
   });
 
-  const [view, setView] = useState<Duration>(Duration.OneWeek);
-  const getIndexViewInDuration = Object.values(Duration).indexOf(view) + 1; // Return index of view in duration.
-  const visibleDates = dates.slice(0, getIndexViewInDuration * 7); // Return index number * days to be shown.
+  // Determine which dates to display based on the view
+  const viewIndex = Object.values(Duration).indexOf(view) + 1; // 1-based
+  const visibleDates = dates.slice(0, viewIndex * 7);
 
   return (
     <div className={styles.planContainer}>
       <div className={styles.dateView}>
-        <DateSelection weekday="Sunday" />
+        <DateSelection
+          weekday="Sunday"
+          selectedDate={selectedDate}
+          onSelect={setSelectedDate}
+        />
         <DateView
           options={Object.values(Duration)}
           selected={view}

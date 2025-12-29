@@ -1,12 +1,17 @@
 import React from "react";
 import styles from "@/styles/dateCard.module.css";
-import { get } from "http";
 
 interface DateCardProps {
   date: Date;
 }
 
 const DateCard: React.FC<DateCardProps> = ({ date }) => {
+  const today = new Date();
+  const isToday =
+    date.getFullYear() === today.getFullYear() &&
+    date.getMonth() === today.getMonth() &&
+    date.getDate() === today.getDate();
+
   const getDayWithSuffix = (date: Date) => {
     const day = date.getDate();
     if (day >= 11 && day <= 13) return `${day}th`; // special case
@@ -23,12 +28,11 @@ const DateCard: React.FC<DateCardProps> = ({ date }) => {
     }
   };
 
-  const getWeekDayLong = (date: Date) => {
-    return date.toLocaleDateString("en-US", { weekday: "long" });
-  };
+  const getWeekDayLong = (date: Date) =>
+    date.toLocaleDateString("en-US", { weekday: "long" });
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${isToday ? styles.today : ""}`}>
       <div className={styles.header}>
         <h3>{getWeekDayLong(date)}</h3>
         <div className={styles.dateDisplay}>{getDayWithSuffix(date)}</div>
