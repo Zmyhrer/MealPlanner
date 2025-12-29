@@ -25,7 +25,7 @@ const getNextWeekdayDate = (
   weekdayIndex: number,
   fromDate: Date = new Date()
 ): Date => {
-  const diff = (weekdayIndex - fromDate.getDay() + 7) % 7;
+  const diff = (weekdayIndex - fromDate.getDay()) % 7;
   const date = new Date(fromDate);
   date.setDate(fromDate.getDate() + diff);
   return date;

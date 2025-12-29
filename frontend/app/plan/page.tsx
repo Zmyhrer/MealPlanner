@@ -16,7 +16,6 @@ const Page = () => {
   });
 
   const [view, setView] = useState<Duration>(Duration.OneWeek);
-
   const getIndexViewInDuration = Object.values(Duration).indexOf(view) + 1; // Return index of view in duration.
   const visibleDates = dates.slice(0, getIndexViewInDuration * 7); // Return index number * days to be shown.
 
