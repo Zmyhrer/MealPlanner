@@ -1,14 +1,16 @@
 import React from "react";
-import Styles from "../styles/mealItem.module.css";
+import styles from "../styles/mealItem.module.css";
 
 export interface MealItemProps {
   name: string;
+  calories: number;
 }
 
-const MealItem = ({ name }: MealItemProps) => {
+const MealItem: React.FC<MealItemProps> = ({ name, calories }) => {
   return (
-    <div className={Styles["mealContainer"]}>
-      <div className={Styles["mealName"]}>{name}</div>
+    <div className={styles["mealContainer"]}>
+      <div className={styles["mealName"]}>{name}</div>
+      <div className={styles["calories"]}>{calories} cal</div>
     </div>
   );
 };

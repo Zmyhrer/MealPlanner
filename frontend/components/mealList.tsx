@@ -11,7 +11,7 @@ const MealList: React.FC<MealListProps> = ({ meals }) => {
   return (
     <div className={Styles["gridContainer"]}>
       {(meals || []).map((meal, index) => (
-        <MealItem key={index} name={meal.name} />
+        <MealItem key={index} name={meal.name} calories={meal.calories} />
       ))}
     </div>
   );
