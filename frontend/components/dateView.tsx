@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import styles from "@/styles/dateView.module.css";
 import Dropdown from "./dropdown";
+import ContainerLabel from "./containerLabel";
 
 export enum Duration {
   OneWeek = "1 week",
@@ -20,14 +21,15 @@ type DateViewProps = {
 const DateView = ({ options, selected, onSelect }: DateViewProps) => {
   return (
     <div className={styles.container}>
-      <div className={styles.label}>View</div>
-      <div className={styles.display}>
-        <Dropdown
-          options={options}
-          selected={selected}
-          onSelect={(value: Duration) => onSelect(value)}
-        />
-      </div>
+      <ContainerLabel label="View">
+        <div className={styles.display}>
+          <Dropdown
+            options={options}
+            selected={selected}
+            onSelect={(value: Duration) => onSelect(value)}
+          />
+        </div>
+      </ContainerLabel>
     </div>
   );
 };
