@@ -2,11 +2,12 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import styles from "@/styles/dropdown.module.css";
+import { Duration } from "./dateView";
 
 interface DropdownProps {
-  options: string[];
-  selected?: string;
-  onSelect: (value: string) => void;
+  options: Duration[];
+  selected?: Duration;
+  onSelect: (value: Duration) => void;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ options, selected, onSelect }) => {
@@ -30,7 +31,7 @@ const Dropdown: React.FC<DropdownProps> = ({ options, selected, onSelect }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleSelect = (value: string) => {
+  const handleSelect = (value: Duration) => {
     setInternalSelected(value);
     onSelect(value);
     setIsOpen(false);

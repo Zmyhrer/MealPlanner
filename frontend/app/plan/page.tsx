@@ -1,10 +1,12 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import styles from "@/styles/plan.module.css";
 import DateSelection from "@/components/dateSelection";
-import DateView from "@/components/dateView";
+import DateView, { Duration } from "@/components/dateView";
 import DateCard from "@/components/dateCard";
 
-const page = () => {
+const Page = () => {
   // Example: render 7 days
   const numDays = 14;
   const today = new Date();
@@ -14,15 +16,29 @@ const page = () => {
     return d;
   });
 
+  const [view, setView] = useState<Duration>(Duration.OneWeek);
+
+  const limitMap: Record<Duration, number> = {
+    [Duration.OneWeek]: 7,
+    [Duration.TwoWeeks]: 14,
+    [Duration.OneMonth]: 30,
+  };
+
+  const visibleDates = dates.slice(0, limitMap[view]);
+
   return (
     <div className={styles.planContainer}>
       <div className={styles.dateView}>
         <DateSelection weekday="Sunday" />
-        <DateView />
+        <DateView
+          options={[Duration.OneWeek, Duration.TwoWeeks, Duration.OneMonth]}
+          selected={view}
+          onSelect={setView}
+        />
       </div>
 
       <div className={styles.datePlan}>
-        {dates.map((date) => (
+        {visibleDates.map((date) => (
           <DateCard key={date.toISOString()} />
         ))}
       </div>
@@ -33,4 +49,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
