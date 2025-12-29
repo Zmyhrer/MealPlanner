@@ -19,10 +19,20 @@
 
 .bottom-container {
   height: 100%;
+  max-height: 900px;
   width: 100%;
   border: 2px solid grey;
   border-radius: 18px;
   padding: 8px;
+  overflow-y: auto;
+
+  /* Hide scrollbar for Chrome, Edge, Safari */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.bottom-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }
 
 .left-container {
@@ -33,5 +43,4 @@
   display: flex;
   justify-content: end;
   flex: 1;
-
 }

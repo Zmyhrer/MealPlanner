@@ -3,8 +3,6 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto 1fr;
   gap: 10px;
-  max-height: 780px;
-  overflow-y: auto;
 }
 
 @media (max-width: 1200px) {

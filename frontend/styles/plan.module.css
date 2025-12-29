@@ -36,6 +36,19 @@
 
 .mealsList {
   margin-top: 8px;
+  overflow-y: auto;
+  max-height: 350px;
+  padding: 10px;
+  border: 2px solid grey;
+  border-radius: 18px;
+
+  /* Hide scrollbar for Chrome, Edge, Safari */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.mealsList::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }
 
 @media (max-width: 1500px) {
