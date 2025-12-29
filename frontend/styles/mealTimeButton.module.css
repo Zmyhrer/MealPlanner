@@ -1,0 +1,65 @@
+.mealButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  min-width: 150px;
+  padding: 0 12px;
+  border-radius: 9999px; /* pill shape */
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: background-color 200ms ease, transform 150ms ease,
+    box-shadow 200ms ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Meal-specific base colors with opacity */
+.breakfast {
+  background-color: yellow;
+  opacity: 0.5;
+  border: 2px solid #d6d601;
+  color: #000;
+}
+
+.lunch {
+  background-color: orange;
+  opacity: 0.5;
+  border: 2px solid #da8d00;
+  color: #000;
+}
+
+.supper {
+  background-color: red;
+  opacity: 0.5;
+  border: 2px solid #c40000;
+  color: #000;
+}
+
+/* Hover & active for unselected buttons */
+.mealButton:not(.selected):not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.mealButton:not(.selected):not(:disabled):active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Selected state */
+.mealButton.selected {
+  opacity: 1;
+  font-weight: 600;
+  border-width: 3px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  cursor: default;
+}
+
+/* Disabled state */
+.mealButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}

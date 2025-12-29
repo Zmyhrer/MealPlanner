@@ -8,6 +8,7 @@ import DateCard from "@/components/dateCard";
 import { select } from "framer-motion/client";
 import SearchBar from "@/components/searchBar";
 import ContainerLabel from "@/components/containerLabel";
+import MealTimes from "@/components/mealTimes";
 
 const Page = () => {
   // Helper to define which dates are valid
@@ -75,6 +76,8 @@ const Page = () => {
         <ContainerLabel label="Meals">
           <SearchBar />
         </ContainerLabel>
+
+        <MealTimes />
       </div>
       <div className={styles.mealsList}>meal-list</div>
     </div>
