@@ -1,8 +1,14 @@
 .gridContainer {
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto 1fr;
   gap: 10px;
+  user-select: none; /* standard */
+  -webkit-user-select: none; /* Chrome, Safari, Edge */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  -webkit-touch-callout: none; /* iOS Safari */
 }
 
 @media (max-width: 1200px) {

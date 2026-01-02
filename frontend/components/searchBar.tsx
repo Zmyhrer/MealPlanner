@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import styles from "../styles/searchBar.module.css";
+import SearchIcon from "./icons/search";
 
 interface SearchBarProps {
   value: string;
@@ -20,7 +21,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   return (
     <div className={styles["container"]}>
       <div className={styles["icon"]}>
-        <Image src="/search.png" alt="search icon" width={20} height={20} />
+        <SearchIcon />
       </div>
       <input
         className={styles["searchInput"]}

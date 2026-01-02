@@ -15,7 +15,7 @@ import {
   getVisibleDates,
 } from "@/services/dateService";
 import { MealTimeType } from "@/components/mealTimes";
-import Carousel from "@/components/carousel";
+import ResponsiveDateCarousel from "@/components/responsiveDateCarousel";
 
 const Page = () => {
   const [filterText, setFilterText] = useState<string>("");
@@ -27,10 +27,6 @@ const Page = () => {
   const dates = generateDates(selectedDate, 31);
   const visibleDates = getVisibleDates(dates, 1);
 
-  const dateSlides = visibleDates.map((date) => (
-    <DateCard key={date.toISOString()} date={date} />
-  ));
-
   return (
     <div className={styles.planContainer}>
       <DateSelection
@@ -39,7 +35,7 @@ const Page = () => {
         onSelect={setSelectedDate}
       />
 
-      <Carousel items={dateSlides} />
+      <ResponsiveDateCarousel dates={visibleDates} />
 
       <div className={styles.searchSelection}>
         <ContainerLabel label="Meals">

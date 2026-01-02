@@ -7,7 +7,6 @@
 }
 
 .grid-item-1 {
-  height: 100%;
   grid-column: 1 / -1;
   background-color: black;
   color: white;
@@ -15,6 +14,5 @@
 
 .main {
   grid-row: 2 / 3;
-  height: 100%;
   overflow-y: auto;
 }

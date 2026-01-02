@@ -3,4 +3,9 @@
   gap: 10px;
   justify-content: center;
   align-items: center;
+  user-select: none; /* standard */
+  -webkit-user-select: none; /* Chrome, Safari, Edge */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  -webkit-touch-callout: none; /* iOS Safari */
 }

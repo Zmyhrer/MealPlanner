@@ -1,86 +1,59 @@
-.plan-container {
-  display: block;
-  flex-direction: row;
-  margin: 10px;
-}
-
 .planContainer {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 16px;
+  padding: 10px;
 }
 
-.carousel {
-}
-
+/* Desktop / large screens: grid layout */
 .datePlan {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  cursor: default;
+}
+
+/* Mobile / small screens: horizontal carousel */
+@media (max-width: 900px) {
+  .datePlan {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .datePlan > * {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  .searchSelection {
+    flex-direction: row;
+  }
 }
 
 .searchSelection {
-  height: auto;
-  width: auto;
-  padding: 0;
-  margin: 0;
-  position: static;
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse;
   justify-content: center;
   align-items: center;
+  gap: 12px;
 }
 
 .mealsList {
   margin-top: 8px;
-  overflow-y: auto;
   max-height: 350px;
+  overflow-y: auto;
   padding: 10px;
   border: 2px solid grey;
   border-radius: 18px;
 
-  /* Hide scrollbar for Chrome, Edge, Safari */
+  /* Hide scrollbar */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
 }
 
 .mealsList::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
-}
-
-@media (max-width: 1500px) {
-  .datePlan {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
-
-@media (max-width: 1300px) {
-  .datePlan {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-@media (max-width: 1100px) {
-  .datePlan {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (max-width: 900px) {
-  .datePlan {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 700px) {
-  .datePlan {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 500px) {
-  .datePlan {
-    grid-template-columns: repeat(1, 1fr);
-  }
 }

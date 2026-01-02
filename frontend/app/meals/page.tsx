@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import Styles from "../../styles/meals.module.css";
 import SearchBar from "@/components/searchBar";
 import MealList from "@/components/mealList";
@@ -34,7 +34,7 @@ const Page = () => {
         {isAddMeal ? (
           <AddMealForm />
         ) : (
-          <MealList meals={meals} filterText={filterText} draggable={true} />
+          <MealList meals={meals} filterText={filterText} draggable={false} />
         )}
       </div>
     </div>

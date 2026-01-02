@@ -1,0 +1,31 @@
+.datePlan {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  user-select: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+  -webkit-overflow-scrolling: auto;
+  cursor: default;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .datePlan {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    overflow-x: auto;
+  }
+
+  .datePlan > * {
+    flex: 0 0 auto;
+    scroll-snap-align: none;
+  }
+
+  .datePlan::-webkit-scrollbar {
+    height: 8px;
+  }
+}

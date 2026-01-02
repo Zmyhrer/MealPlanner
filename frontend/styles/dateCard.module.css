@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 300px;
-  width: 250px;
+  width: auto;
   border: 1px solid black;
   border-radius: 8px;
   overflow: hidden;
@@ -17,6 +17,7 @@
   .header {
     color: rgb(175, 0, 175);
     height: 36px;
+    border-color: rgb(175, 0, 175);
   }
 }
 
@@ -45,4 +46,10 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+@media (max-width: 900px) {
+  .container {
+    width: 250px;
+  }
 }
