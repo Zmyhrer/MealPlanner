@@ -3,6 +3,12 @@ import styles from "@/styles/dateCard.module.css";
 import DateMeal, { DateMealProps } from "@/components/dateMeal";
 import { MealTimeType } from "@/components/mealTimes";
 
+const MEAL_ORDER: Record<MealTimeType, number> = {
+  Breakfast: 0,
+  Lunch: 1,
+  Supper: 2,
+};
+
 interface DateCardProps {
   date: Date;
 }
@@ -24,22 +30,23 @@ const DateCard: React.FC<DateCardProps> = ({ date }) => {
 
     const parsed = JSON.parse(raw);
 
-    // This will now correctly receive the mealTime
     const meal: DateMealProps = {
       id: crypto.randomUUID(),
       name: parsed.name,
       calories: parsed.calories,
-      mealTime: parsed.mealTime as MealTimeType,
+      mealTime: parsed.mealTime,
     };
 
     setMeals((prev) => [...prev, meal]);
-
-    console.log(meal);
   }
 
   function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
   }
+
+  const sortedMeals = [...meals].sort(
+    (a, b) => MEAL_ORDER[a.mealTime] - MEAL_ORDER[b.mealTime]
+  );
 
   return (
     <div
@@ -53,7 +60,7 @@ const DateCard: React.FC<DateCardProps> = ({ date }) => {
       </div>
 
       <div className={styles.mealList}>
-        {meals.map((meal) => (
+        {sortedMeals.map((meal) => (
           <DateMeal
             key={meal.id}
             id={meal.id}
