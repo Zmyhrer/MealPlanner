@@ -1,51 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "@/styles/dateCard.module.css";
+import DateMeal, { DateMealProps } from "@/components/dateMeal";
+import { MealTimeType } from "@/components/mealTimes";
 
 interface DateCardProps {
   date: Date;
 }
 
 const DateCard: React.FC<DateCardProps> = ({ date }) => {
+  const [meals, setMeals] = useState<DateMealProps[]>([]);
+
   const today = new Date();
   const isToday =
     date.getFullYear() === today.getFullYear() &&
     date.getMonth() === today.getMonth() &&
     date.getDate() === today.getDate();
 
-  const getDayWithSuffix = (date: Date) => {
-    const day = date.getDate();
-    if (day >= 11 && day <= 13) return `${day}th`; // special case
-    const lastDigit = day % 10;
-    switch (lastDigit) {
-      case 1:
-        return `${day}st`;
-      case 2:
-        return `${day}nd`;
-      case 3:
-        return `${day}rd`;
-      default:
-        return `${day}th`;
-    }
-  };
+  function handleDrop(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
 
-  const getWeekDayLong = (date: Date) =>
-    date.toLocaleDateString("en-US", { weekday: "long" });
+    const raw = e.dataTransfer.getData("application/json");
+    if (!raw) return;
+
+    const parsed = JSON.parse(raw);
+
+    // This will now correctly receive the mealTime
+    const meal: DateMealProps = {
+      id: crypto.randomUUID(),
+      name: parsed.name,
+      calories: parsed.calories,
+      mealTime: parsed.mealTime as MealTimeType,
+    };
+
+    setMeals((prev) => [...prev, meal]);
+
+    console.log(meal);
+  }
+
+  function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+  }
 
   return (
-    <div className={`${styles.container} ${isToday ? styles.today : ""}`}>
+    <div
+      className={`${styles.container} ${isToday ? styles.today : ""}`}
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+    >
       <div className={styles.header}>
-        <h3>{getWeekDayLong(date)}</h3>
-        <div className={styles.dateDisplay}>{getDayWithSuffix(date)}</div>
+        <h3>{date.toLocaleDateString("en-US", { weekday: "long" })}</h3>
+        <div className={styles.dateDisplay}>{date.getDate()}</div>
       </div>
+
       <div className={styles.mealList}>
-        <p>Meal 1</p>
-        <p>Meal 2</p>
-        <p>Meal 3</p>
-        <p>Meal 4</p>
-        <p>Meal 5</p>
-        <p>Meal 6</p>
-        <p>Meal 7</p>
-        <p>Meal 8</p>
+        {meals.map((meal) => (
+          <DateMeal
+            key={meal.id}
+            id={meal.id}
+            name={meal.name}
+            calories={meal.calories}
+            mealTime={meal.mealTime}
+          />
+        ))}
       </div>
     </div>
   );

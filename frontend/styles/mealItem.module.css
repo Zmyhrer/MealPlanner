@@ -1,19 +1,45 @@
 .mealContainer {
   display: flex;
+  flex-direction: column; /* stack name and lower row vertically */
   width: 100%;
-  height: 100%;
-  justify-content: space-between;
-  align-items: center;
   padding: 8px;
   border-radius: 10px;
   background-color: rgb(130, 130, 243);
   color: white;
+  cursor: grab;
 }
 
 .mealContainer:hover {
-  box-shadow: 1px 2px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .mealName {
   font-size: large;
+  margin-bottom: 8px; /* space between name and lower row */
+}
+
+.lowerContainer {
+  display: flex;
+  justify-content: space-between; /* hashtags left, calories right */
+  align-items: center;
+  width: 100%;
+}
+
+.hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.hashtag {
+  font-size: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.calories {
+  min-width: 70px;
+  text-align: right;
+  font-weight: 500;
 }

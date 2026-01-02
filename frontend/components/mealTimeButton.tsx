@@ -1,12 +1,13 @@
 import React from "react";
 import styles from "@/styles/mealTimeButton.module.css";
+import { MealTimeType } from "./mealTimes";
 
 interface MealTimeButtonProps {
   label: string;
   selected?: boolean;
   disabled?: boolean;
   onClick?: () => void;
-  meal: "Breakfast" | "Lunch" | "Supper";
+  meal: MealTimeType;
 }
 
 const MealTimeButton: React.FC<MealTimeButtonProps> = ({

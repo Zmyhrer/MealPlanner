@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px;
+  border-radius: 9999px; /* pill shape */
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: background-color 200ms ease, transform 150ms ease,
+    box-shadow 200ms ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: medium;
+}
+
+/* Meal-specific base colors with opacity */
+.Breakfast {
+  background-color: yellow;
+  border: 2px solid #d6d601;
+  color: #000;
+}
+
+.Lunch {
+  background-color: orange;
+  border: 2px solid #da8d00;
+  color: #000;
+}
+
+.Supper {
+  background-color: red;
+  border: 2px solid #c40000;
+  color: #000;
+}
+
+.mealName {
+  font-size: 12px;
+}
+
+.calories {
+  font-size: 12px;
+}
