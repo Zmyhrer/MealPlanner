@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
-import { createPortal } from "react-dom";
 import styles from "@/styles/dateMeal.module.css";
 import { MealTimeType } from "./mealTimes";
 import TrashIcon from "./icons/trashcan";
+import Tooltip from "@/components/toolTip";
 
 export interface DateMealProps {
   id: string;
@@ -19,20 +19,20 @@ const DateMeal: React.FC<DateMealProps> = ({
   mealTime,
   onDelete,
 }) => {
+  const mealRef = useRef<HTMLDivElement>(null);
   const [hoverPos, setHoverPos] = useState<{
     x: number;
     y: number;
     width: number;
   } | null>(null);
-  const mealRef = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = () => {
-    if (mealRef.current) {
-      const el = mealRef.current;
-      if (el.scrollWidth > el.clientWidth) {
-        const rect = el.getBoundingClientRect();
-        setHoverPos({ x: rect.left, y: rect.top, width: rect.width });
-      }
+    if (
+      mealRef.current &&
+      mealRef.current.scrollWidth > mealRef.current.clientWidth
+    ) {
+      const rect = mealRef.current.getBoundingClientRect();
+      setHoverPos({ x: rect.left, y: rect.top, width: rect.width });
     }
   };
 
@@ -55,21 +55,14 @@ const DateMeal: React.FC<DateMealProps> = ({
         <TrashIcon />
       </button>
 
-      {hoverPos &&
-        createPortal(
-          <div
-            className={styles.tooltip}
-            style={{
-              left: hoverPos.x + hoverPos.width / 2,
-              top: hoverPos.y - 8,
-              transform: "translateX(-50%) translateY(-100%)",
-            }}
-          >
-            {name}
-            <div className={styles.tooltipArrow} />
-          </div>,
-          document.body
-        )}
+      {hoverPos && (
+        <Tooltip
+          x={hoverPos.x}
+          y={hoverPos.y}
+          width={hoverPos.width}
+          content={name}
+        />
+      )}
     </div>
   );
 };

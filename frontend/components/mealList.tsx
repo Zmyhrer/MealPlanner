@@ -16,9 +16,41 @@ const MealList: React.FC<MealListProps> = ({
   draggable,
   mealTime,
 }) => {
-  const filteredMeals = meals.filter((meal) =>
-    (meal.name ?? "").toLowerCase().includes(filterText.toLowerCase())
-  );
+  const filteredMeals = meals.filter((meal) => {
+    if (!filterText.trim()) return true;
+
+    // Split on " or " (case-insensitive)
+    const orClauses = filterText.toLowerCase().split(/\s+or\s+/);
+
+    return orClauses.some((clause) => {
+      const terms = clause.trim().split(/\s+/);
+      const nameTerms: string[] = [];
+      const hashtagTerms: string[] = [];
+
+      // Separate name vs hashtag terms
+      terms.forEach((term) => {
+        if (term.startsWith("#")) {
+          hashtagTerms.push(term.slice(1));
+        } else {
+          nameTerms.push(term);
+        }
+      });
+
+      // AND logic: all name terms must match
+      const nameMatches = nameTerms.every((t) =>
+        meal.name?.toLowerCase().includes(t)
+      );
+
+      // AND logic: all hashtag terms must match
+      const hashtags = meal.hashtags ?? [];
+      const hashtagsMatches = hashtagTerms.every((ht) =>
+        hashtags.some((tag) => tag.toLowerCase().includes(ht))
+      );
+
+      // Return true if this clause matches
+      return nameMatches && hashtagsMatches;
+    });
+  });
 
   return (
     <div className={Styles["gridContainer"]}>
