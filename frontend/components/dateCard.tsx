@@ -35,6 +35,7 @@ const DateCard: React.FC<DateCardProps> = ({ date }) => {
       name: parsed.name,
       calories: parsed.calories,
       mealTime: parsed.mealTime,
+      onDelete: parsed.id,
     };
 
     setMeals((prev) => [...prev, meal]);
@@ -47,6 +48,10 @@ const DateCard: React.FC<DateCardProps> = ({ date }) => {
   const sortedMeals = [...meals].sort(
     (a, b) => MEAL_ORDER[a.mealTime] - MEAL_ORDER[b.mealTime]
   );
+
+  const handleDeleteMeal = (id: string) => {
+    setMeals((prev) => prev.filter((meal) => meal.id !== id));
+  };
 
   return (
     <div
@@ -67,6 +72,7 @@ const DateCard: React.FC<DateCardProps> = ({ date }) => {
             name={meal.name}
             calories={meal.calories}
             mealTime={meal.mealTime}
+            onDelete={handleDeleteMeal}
           />
         ))}
       </div>
