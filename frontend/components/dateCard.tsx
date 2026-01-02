@@ -70,7 +70,6 @@ const DateCard: React.FC<DateCardProps> = ({ date }) => {
             key={meal.id}
             id={meal.id}
             name={meal.name}
-            calories={meal.calories}
             mealTime={meal.mealTime}
             onDelete={handleDeleteMeal}
           />

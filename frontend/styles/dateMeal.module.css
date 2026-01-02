@@ -1,8 +1,8 @@
 :root {
-  --radius: 10px;
+  --radius: 12px;
   --transition-fast: 150ms ease;
   --transition-medium: 220ms ease;
-  --shadow-soft: 0 4px 10px rgba(0, 0, 0, 0.08);
+  --shadow-soft: 0 3px 6px rgba(0, 0, 0, 0.1);
 
   --breakfast-bg: #fff6b3;
   --breakfast-border: #e5d75f;
@@ -18,73 +18,58 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 10px;
+  gap: 8px;
+  padding: 4px 8px;
   border-radius: var(--radius);
-  border: 1px solid transparent;
-  cursor: pointer;
-  font-weight: 500;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  position: relative;
   box-shadow: var(--shadow-soft);
-  transition: background-color var(--transition-medium),
-    box-shadow var(--transition-medium), transform var(--transition-fast);
-}
-
-.container:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  background-color: #fff;
+  user-select: none;
 }
 
 .Breakfast {
   background-color: var(--breakfast-bg);
-  border-color: var(--breakfast-border);
+  border: 1px solid var(--breakfast-border);
   color: #222;
 }
 
 .Lunch {
   background-color: var(--lunch-bg);
-  border-color: var(--lunch-border);
+  border: 1px solid var(--lunch-border);
   color: #222;
 }
 
 .Supper {
   background-color: var(--supper-bg);
-  border-color: var(--supper-border);
+  border: 1px solid var(--supper-border);
   color: #222;
 }
 
-.mealName,
-.calories {
-  font-size: 0.75rem;
-  line-height: 1.2;
-}
-
-.rightSide {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
+.mealName {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .deleteButton {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   display: grid;
   place-items: center;
-  background: rgba(0, 0, 0, 0.15);
-  color: #fff;
-  border: none;
   border-radius: 50%;
-  font-size: 10px;
-  font-weight: 600;
+  color: #fff;
   cursor: pointer;
   transition: background var(--transition-fast),
     transform var(--transition-fast);
+  flex-shrink: 0;
 }
 
 .deleteButton:hover {
-  background: rgba(0, 0, 0, 0.35);
   transform: scale(1.1);
 }
 

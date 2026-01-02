@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "@/styles/dateMeal.module.css";
 import { MealTimeType } from "./mealTimes";
-import RemoveIcon from "@/public/remove.png";
+import RemoveIcon from "@/public/clear.png";
 import Image from "next/image";
 
 export interface DateMealProps {
@@ -20,14 +20,12 @@ const DateMeal: React.FC<DateMealProps> = ({
   onDelete,
 }) => {
   return (
-    <div className={`${styles.container} ${styles[mealTime]}`}>
-      <div className={styles.mealName}>{name}</div>
-      <div className={styles.rightSide}>
-        <button className={styles.deleteButton} onClick={() => onDelete(id)}>
-          <Image src={RemoveIcon} alt="Delete Meal Button" />
-        </button>
-        <div className={styles.calories}>{calories}</div>
-      </div>
+    <div className={styles.container}>
+      <div className={`${styles.mealName} ${styles[mealTime]}`}>{name}</div>
+
+      <button className={styles.deleteButton} onClick={() => onDelete(id)}>
+        <Image src={RemoveIcon} alt="Delete Meal Button" />
+      </button>
     </div>
   );
 };

@@ -11,9 +11,7 @@
   padding: 16px;
 }
 
-.dateView {
-  display: flex;
-  gap: 16px;
+.carousel {
 }
 
 .datePlan {
