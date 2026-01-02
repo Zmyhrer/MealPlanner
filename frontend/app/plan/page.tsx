@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import styles from "@/styles/plan.module.css";
 import DateSelection from "@/components/dateSelection";
-import DateView, { Duration } from "@/components/dateView";
 import DateCard from "@/components/dateCard";
 import SearchBar from "@/components/searchBar";
 import ContainerLabel from "@/components/containerLabel";
@@ -22,15 +21,13 @@ const Page = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(() =>
     getClosestValidDateToToday("Sunday")
   );
-  const [view, setView] = useState<Duration>(Duration.OneWeek);
   const [activeMeal, setActiveMeal] = useState<MealTimeType>("Breakfast");
 
   // Generate 31 days starting from selectedDate
   const dates = generateDates(selectedDate, 31);
 
   // Determine which dates to display based on the view
-  const viewIndex = Object.values(Duration).indexOf(view) + 1;
-  const visibleDates = getVisibleDates(dates, viewIndex);
+  const visibleDates = getVisibleDates(dates, 1);
 
   return (
     <div className={styles.planContainer}>
@@ -39,11 +36,6 @@ const Page = () => {
           weekday="Sunday"
           selectedDate={selectedDate}
           onSelect={setSelectedDate}
-        />
-        <DateView
-          options={Object.values(Duration)}
-          selected={view}
-          onSelect={setView}
         />
       </div>
 
