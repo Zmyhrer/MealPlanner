@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import styles from "@/styles/plan.module.css";
 import DateSelection from "@/components/dateSelection";
-import DateCard from "@/components/dateCard";
 import SearchBar from "@/components/searchBar";
 import ContainerLabel from "@/components/containerLabel";
 import MealTimes from "@/components/mealTimes";
@@ -59,7 +58,14 @@ const Page = () => {
 
       <div className={styles.mealsList}>
         <MealList
-          meals={meals}
+          meals={meals.map((meal) => ({
+            id: meal.id,
+            name: meal.mealName,
+            calories: meal.calories,
+            hashtags: meal.tags,
+            ingredients: meal.ingredients,
+            instructions: meal.instructions,
+          }))}
           filterText={filterText}
           draggable={true}
           mealTime={activeMeal}

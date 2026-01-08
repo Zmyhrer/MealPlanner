@@ -1,8 +1,6 @@
 "use client";
-
-// components/AddMealForm.tsx
 import React, { useState, useRef, useEffect } from "react";
-import Styles from "@/styles/mealForm.module.css";
+import styles from "@/styles/mealForm.module.css";
 import { Meal } from "@/services/mealService";
 
 interface Ingredient {
@@ -13,19 +11,27 @@ interface Ingredient {
 
 interface MealFormProps {
   title: string;
-  submit: (meal: Meal) => void;
+  submit: (meal: Meal) => Promise<Meal>;
+  mealId?: string;
+  initialMeal?: Meal;
 }
 
-const MealForm: React.FC<MealFormProps> = ({ title, submit }) => {
-  const [mealName, setMealName] = useState("");
-  const [tags, setTags] = useState<string[]>([]);
+const MealForm: React.FC<MealFormProps> = ({
+  title,
+  submit,
+  mealId,
+  initialMeal,
+}) => {
+  const [mealName, setMealName] = useState(initialMeal?.mealName || "");
+  const [tags, setTags] = useState<string[]>(initialMeal?.tags || []);
   const [tagInput, setTagInput] = useState("");
-  const [ingredients, setIngredients] = useState<Ingredient[]>([
-    { quantity: "", unit: "tsp", name: "" },
-  ]);
-  const [instructions, setInstructions] = useState("");
+  const [ingredients, setIngredients] = useState<Ingredient[]>(
+    initialMeal?.ingredients || [{ quantity: "", unit: "g", name: "" }]
+  );
+  const [instructions, setInstructions] = useState(
+    initialMeal?.instructions || ""
+  );
 
-  // Refs for ingredient name inputs
   const ingredientRefs = useRef<Array<HTMLInputElement | null>>([]);
 
   // Tags
@@ -41,9 +47,9 @@ const MealForm: React.FC<MealFormProps> = ({ title, submit }) => {
     setTags(tags.filter((t) => t !== tag));
   };
 
-  const handleKeyDownTag = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
+  const handleKeyDownTag = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
       handleAddTag();
     }
   };
@@ -60,7 +66,7 @@ const MealForm: React.FC<MealFormProps> = ({ title, submit }) => {
   };
 
   const handleAddIngredient = () => {
-    setIngredients([...ingredients, { quantity: "", unit: "tsp", name: "" }]);
+    setIngredients([...ingredients, { quantity: "", unit: "g", name: "" }]);
   };
 
   const handleRemoveIngredient = (index: number) => {
@@ -69,21 +75,13 @@ const MealForm: React.FC<MealFormProps> = ({ title, submit }) => {
     setIngredients(updated);
   };
 
-  // Focus the last ingredient name input when a new ingredient is added
   useEffect(() => {
     const lastIndex = ingredients.length - 1;
     ingredientRefs.current[lastIndex]?.focus();
   }, [ingredients.length]);
 
-  // Submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({
-      mealName,
-      tags,
-      ingredients,
-      instructions,
-    });
 
     const meal: Meal = {
       mealName,
@@ -92,25 +90,25 @@ const MealForm: React.FC<MealFormProps> = ({ title, submit }) => {
       instructions,
     };
 
-    //MealService addMeal function
     try {
-      const result = await submit(meal);
-      console.log(result);
-      alert("Meal added successfully");
+      await submit(meal);
+      alert("Meal submitted successfully");
 
-      // Reset form
-      setMealName("");
-      setTags([]);
-      setIngredients([{ quantity: "", unit: "g", name: "" }]);
-      setInstructions("");
+      // Reset form only if not editing
+      if (!initialMeal) {
+        setMealName("");
+        setTags([]);
+        setIngredients([{ quantity: "", unit: "g", name: "" }]);
+        setInstructions("");
+      }
     } catch (error) {
       console.error(error);
-      alert("Failed to add meal");
+      alert("Failed to submit meal");
     }
   };
 
   return (
-    <form className={Styles.formContainer} onSubmit={handleSubmit}>
+    <form className={styles.formContainer} onSubmit={handleSubmit}>
       <h1>{title}</h1>
 
       {/* Meal Name */}
@@ -125,9 +123,9 @@ const MealForm: React.FC<MealFormProps> = ({ title, submit }) => {
       />
 
       {/* Tags */}
-      <div className={Styles.section}>
+      <div className={styles.section}>
         <label htmlFor="tags">Tags:</label>
-        <div className={Styles.inlineInput}>
+        <div className={styles.inlineInput}>
           <input
             id="tags"
             type="text"
@@ -140,9 +138,9 @@ const MealForm: React.FC<MealFormProps> = ({ title, submit }) => {
             Add
           </button>
         </div>
-        <div className={Styles.tagsList}>
+        <div className={styles.tagsList}>
           {tags.map((tag) => (
-            <span key={tag} className={Styles.tag}>
+            <span key={tag} className={styles.tag}>
               {"#" + tag}{" "}
               <button type="button" onClick={() => handleRemoveTag(tag)}>
                 ×
@@ -153,10 +151,10 @@ const MealForm: React.FC<MealFormProps> = ({ title, submit }) => {
       </div>
 
       {/* Ingredients */}
-      <div className={Styles.section}>
+      <div className={styles.section}>
         <label>Ingredients:</label>
         {ingredients.map((ing, index) => (
-          <div key={index} className={Styles.inlineInput}>
+          <div key={index} className={styles.inlineInput}>
             <input
               type="text"
               value={ing.quantity}
@@ -195,7 +193,6 @@ const MealForm: React.FC<MealFormProps> = ({ title, submit }) => {
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
-                  // Focus next ingredient name or add new
                   if (ingredientRefs.current[index + 1]) {
                     ingredientRefs.current[index + 1]?.focus();
                   } else {
@@ -210,7 +207,7 @@ const MealForm: React.FC<MealFormProps> = ({ title, submit }) => {
           </div>
         ))}
         <button
-          className={Styles.addMoreButton}
+          className={styles.addMoreButton}
           type="button"
           onClick={handleAddIngredient}
         >
@@ -221,7 +218,7 @@ const MealForm: React.FC<MealFormProps> = ({ title, submit }) => {
       {/* Instructions */}
       <label htmlFor="instructions">Instructions:</label>
       <textarea
-        className={Styles.instructions}
+        className={styles.instructions}
         id="instructions"
         value={instructions}
         onChange={(e) => setInstructions(e.target.value)}

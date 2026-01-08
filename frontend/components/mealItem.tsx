@@ -1,9 +1,13 @@
+"use client";
+
 import React, { useRef, useState } from "react";
 import styles from "../styles/mealItem.module.css";
 import { MealTimeType } from "./mealTimes";
 import Tooltip from "@/components/toolTip";
+import { useRouter } from "next/navigation"; // ✅ App Router
 
 export interface MealItemProps {
+  id: string;
   name: string;
   calories: number;
   hashtags: string[];
@@ -12,6 +16,7 @@ export interface MealItemProps {
 }
 
 const MealItem: React.FC<MealItemProps> = ({
+  id,
   name,
   calories,
   hashtags,
@@ -25,7 +30,9 @@ const MealItem: React.FC<MealItemProps> = ({
     y: 0,
     width: 0,
   });
+  const router = useRouter(); // ✅ Client Component only
 
+  // Tooltip logic
   const handleMouseEnter = () => {
     if (mealRef.current) {
       const isTextOverflowing =
@@ -42,9 +49,17 @@ const MealItem: React.FC<MealItemProps> = ({
     setShowTooltip(false);
   };
 
+  // Drag logic
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     const payload = JSON.stringify({ name, calories, hashtags, mealTime });
     e.dataTransfer.setData("application/json", payload);
+  };
+
+  // Click logic
+  const handleClick = () => {
+    if (!draggable) {
+      router.push(`/meals/${id}`);
+    }
   };
 
   return (
@@ -52,6 +67,7 @@ const MealItem: React.FC<MealItemProps> = ({
       className={styles.mealContainer}
       draggable={draggable}
       onDragStart={draggable ? handleDragStart : undefined}
+      onClick={!draggable ? handleClick : undefined}
     >
       <div
         ref={mealRef}

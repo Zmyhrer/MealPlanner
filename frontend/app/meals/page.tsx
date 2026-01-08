@@ -35,7 +35,18 @@ const Page = () => {
         {isAddMeal ? <MealForm title="Add Meal Form" submit={addMeal} /> : ""}
       </div>
       <div className={styles["bottom-container"]}>
-        <MealList meals={meals} filterText={filterText} draggable={false} />
+        <MealList
+          meals={meals.map((meal) => ({
+            id: meal.id,
+            name: meal.mealName,
+            calories: meal.calories,
+            hashtags: meal.tags,
+            ingredients: meal.ingredients,
+            instructions: meal.instructions,
+          }))}
+          filterText={filterText}
+          draggable={false}
+        />
       </div>
     </div>
   );

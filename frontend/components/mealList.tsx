@@ -56,7 +56,8 @@ const MealList: React.FC<MealListProps> = ({
     <div className={Styles["gridContainer"]}>
       {filteredMeals.map((meal) => (
         <MealItem
-          key={meal.name}
+          key={meal.id}
+          id={meal.id}
           name={meal.name}
           calories={meal.calories}
           hashtags={meal.hashtags}
