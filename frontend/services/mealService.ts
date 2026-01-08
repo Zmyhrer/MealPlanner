@@ -8,7 +8,7 @@ export interface Ingredient {
 }
 
 export interface Meal {
-  id?: string; // optional, for mock or API identification
+  id?: string;
   mealName: string;
   tags: string[];
   ingredients: Ingredient[];
