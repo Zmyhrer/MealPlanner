@@ -1,5 +1,6 @@
 .planContainer {
   display: flex;
+  height: 100%;
   flex-direction: column;
   gap: 16px;
   padding: 10px;
@@ -11,6 +12,7 @@
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 16px;
   cursor: default;
+  min-height: 300px;
 }
 
 /* Mobile / small screens: horizontal carousel */
@@ -43,11 +45,11 @@
 
 .mealsList {
   margin-top: 8px;
-  max-height: 350px;
   overflow-y: auto;
   padding: 10px;
   border: 2px solid grey;
   border-radius: 18px;
+  flex: 1;
 
   /* Hide scrollbar */
   scrollbar-width: none; /* Firefox */
