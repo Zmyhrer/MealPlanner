@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styles from "../styles/mealItem.module.css";
 import { MealTimeType } from "./mealTimes";
+import Tooltip from "@/components/toolTip";
 
 export interface MealItemProps {
   name: string;
   calories: number;
   hashtags: string[];
   draggable?: boolean;
-  mealTime?: MealTimeType; // Renamed from activeMeal for clarity
+  mealTime?: MealTimeType;
 }
 
 const MealItem: React.FC<MealItemProps> = ({
@@ -17,11 +18,34 @@ const MealItem: React.FC<MealItemProps> = ({
   draggable = false,
   mealTime,
 }) => {
-  function handleDragStart(e: React.DragEvent<HTMLDivElement>) {
-    // FIX: The key for the mealtime is now 'mealTime' to match what DateCard expects.
+  const [showTooltip, setShowTooltip] = useState(false);
+  const mealRef = useRef<HTMLDivElement>(null);
+  const [tooltipPosition, setTooltipPosition] = useState({
+    x: 0,
+    y: 0,
+    width: 0,
+  });
+
+  const handleMouseEnter = () => {
+    if (mealRef.current) {
+      const isTextOverflowing =
+        mealRef.current.scrollWidth > mealRef.current.clientWidth;
+      if (isTextOverflowing) {
+        const rect = mealRef.current.getBoundingClientRect();
+        setTooltipPosition({ x: rect.left, y: rect.top, width: rect.width });
+        setShowTooltip(true);
+      }
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+  };
+
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     const payload = JSON.stringify({ name, calories, hashtags, mealTime });
     e.dataTransfer.setData("application/json", payload);
-  }
+  };
 
   return (
     <div
@@ -29,7 +53,14 @@ const MealItem: React.FC<MealItemProps> = ({
       draggable={draggable}
       onDragStart={draggable ? handleDragStart : undefined}
     >
-      <div className={styles.mealName}>{name}</div>
+      <div
+        ref={mealRef}
+        className={styles.mealName}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {name}
+      </div>
 
       <div className={styles.lowerContainer}>
         <div className={styles.hashtags}>
@@ -41,6 +72,15 @@ const MealItem: React.FC<MealItemProps> = ({
         </div>
         <div className={styles.calories}>{calories} cal</div>
       </div>
+
+      {showTooltip && (
+        <Tooltip
+          x={tooltipPosition.x}
+          y={tooltipPosition.y}
+          width={tooltipPosition.width}
+          content={name}
+        />
+      )}
     </div>
   );
 };

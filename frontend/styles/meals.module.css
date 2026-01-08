@@ -34,11 +34,11 @@
   display: none; /* Chrome, Safari, Edge */
 }
 
-.left-container {
+.top-left-container {
   flex: 1;
 }
 
-.right-container {
+.top-right-container {
   display: flex;
   justify-content: end;
   flex: 1;

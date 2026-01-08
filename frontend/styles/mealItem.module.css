@@ -1,12 +1,16 @@
 .mealContainer {
   display: flex;
-  flex-direction: column; /* stack name and lower row vertically */
+  flex-direction: column;
   width: 100%;
+  height: 80px;
   padding: 8px;
   border-radius: 10px;
   background-color: rgb(130, 130, 243);
   color: white;
   cursor: default;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevents content from overflowing the container */
+  min-width: 0; /* Allows flex item to shrink below content size */
 }
 
 .mealContainer:hover {
@@ -14,32 +18,44 @@
 }
 
 .mealName {
-  font-size: large;
-  margin-bottom: 8px; /* space between name and lower row */
+  font-size: clamp(0.75rem, 1cqw, 1rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0; /* Allows text to truncate properly in flex container */
 }
 
 .lowerContainer {
   display: flex;
-  justify-content: space-between; /* hashtags left, calories right */
+  justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-top: auto;
+  min-width: 0; /* Allows container to shrink */
 }
 
 .hashtags {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 4px;
+  max-height: 40px;
+  overflow: hidden;
+  min-width: 250px;
+  flex: 1;
+  container-type: inline-size;
 }
 
 .hashtag {
-  font-size: 0.75rem;
+  font-size: clamp(0.65rem, 1cqw, 0.8rem);
   background-color: rgba(255, 255, 255, 0.2);
   padding: 2px 6px;
   border-radius: 6px;
+  white-space: nowrap;
 }
 
 .calories {
   min-width: 70px;
   text-align: right;
   font-weight: 500;
+  flex-shrink: 0; /* Prevents calories from shrinking */
 }

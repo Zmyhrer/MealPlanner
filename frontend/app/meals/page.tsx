@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Styles from "../../styles/meals.module.css";
+import styles from "../../styles/meals.module.css";
 import SearchBar from "@/components/searchBar";
 import MealList from "@/components/mealList";
 import AddMealButton from "@/components/addMealButton";
@@ -17,25 +17,24 @@ const Page = () => {
   };
 
   return (
-    <div className={Styles["grid-container"]}>
-      <div className={Styles["top-container"]}>
-        <div className={Styles["left-container"]}>
+    <div className={styles["grid-container"]}>
+      <div className={styles["top-container"]}>
+        <div className={styles["top-left-container"]}>
           <SearchBar
             value={filterText}
             placeholder={"Search Meals"}
             onChange={(value: string) => setFilterText(value)}
           />
         </div>
-        <div className={Styles["right-container"]}>
+        <div className={styles["top-right-container"]}>
           <AddMealButton onClick={handleAddMealButton} isActive={isAddMeal} />
         </div>
       </div>
-      <div className={Styles["bottom-container"]}>
-        {isAddMeal ? (
-          <AddMealForm />
-        ) : (
-          <MealList meals={meals} filterText={filterText} draggable={false} />
-        )}
+      <div className={styles["mid-container"]}>
+        {isAddMeal ? <AddMealForm /> : ""}
+      </div>
+      <div className={styles["bottom-container"]}>
+        <MealList meals={meals} filterText={filterText} draggable={false} />
       </div>
     </div>
   );

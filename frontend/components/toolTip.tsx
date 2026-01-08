@@ -1,6 +1,6 @@
 import React from "react";
 import { createPortal } from "react-dom";
-import styles from "@/styles/dateMeal.module.css";
+import styles from "@/styles/toolTip.module.css";
 
 interface TooltipProps {
   x: number;

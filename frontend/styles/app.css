@@ -3,7 +3,7 @@
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr; /* header, main content, footer */
+  grid-template-rows: auto 1fr;
 }
 
 .grid-item-1 {
