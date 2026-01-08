@@ -1,7 +1,7 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
-import addMealForm from "../components/addMealForm";
+import addMealForm from "../components/mealForm";
 
 const meta: Meta<typeof addMealForm> = {
   component: addMealForm,

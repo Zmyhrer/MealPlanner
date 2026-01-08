@@ -1,7 +1,9 @@
+"use client";
+
 // components/AddMealForm.tsx
 import React, { useState, useRef, useEffect } from "react";
-import Styles from "@/styles/addMealForm.module.css";
-import { addMeal, Meal } from "@/services/mealService";
+import Styles from "@/styles/mealForm.module.css";
+import { Meal } from "@/services/mealService";
 
 interface Ingredient {
   quantity: string;
@@ -9,7 +11,12 @@ interface Ingredient {
   name: string;
 }
 
-const AddMealForm: React.FC = () => {
+interface MealFormProps {
+  title: string;
+  submit: (meal: Meal) => void;
+}
+
+const MealForm: React.FC<MealFormProps> = ({ title, submit }) => {
   const [mealName, setMealName] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
@@ -87,7 +94,7 @@ const AddMealForm: React.FC = () => {
 
     //MealService addMeal function
     try {
-      const result = await addMeal(meal);
+      const result = await submit(meal);
       console.log(result);
       alert("Meal added successfully");
 
@@ -104,7 +111,7 @@ const AddMealForm: React.FC = () => {
 
   return (
     <form className={Styles.formContainer} onSubmit={handleSubmit}>
-      <h2>Add a Meal</h2>
+      <h1>{title}</h1>
 
       {/* Meal Name */}
       <label htmlFor="mealName">Meal Name:</label>
@@ -228,4 +235,4 @@ const AddMealForm: React.FC = () => {
   );
 };
 
-export default AddMealForm;
+export default MealForm;

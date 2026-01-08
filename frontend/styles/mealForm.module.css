@@ -47,6 +47,11 @@
   background-color: #5a5adf;
 }
 
+.formContainer h1 {
+  font-size: 2rem;
+  margin: 0 auto;
+}
+
 .addMoreButton {
   margin-top: 10px;
   background-color: red;
@@ -88,4 +93,3 @@
   width: 100%;
   box-sizing: border-box;
 }
-

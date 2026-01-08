@@ -11,18 +11,30 @@ export interface Meal {
   instructions: string;
 }
 
-export async function addMeal(meal: Meal) {
+async function handleResponse(res: Response) {
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.message || res.statusText);
+  }
+  return data;
+}
+
+export async function addMeal(meal: Meal): Promise<Meal> {
   const res = await fetch("/api/meals/add", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(meal),
   });
 
-  if (!res.ok) {
-    throw new Error(res.statusText);
-  }
+  return handleResponse(res);
+}
 
-  return res.json();
+export async function updateMeal(meal: Meal): Promise<Meal> {
+  const res = await fetch("/api/meals/update", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(meal),
+  });
+
+  return handleResponse(res);
 }

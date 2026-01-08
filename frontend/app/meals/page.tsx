@@ -5,8 +5,9 @@ import styles from "../../styles/meals.module.css";
 import SearchBar from "@/components/searchBar";
 import MealList from "@/components/mealList";
 import AddMealButton from "@/components/addMealButton";
-import AddMealForm from "@/components/addMealForm";
+import MealForm from "@/components/mealForm";
 import meals from "@/data/mockMeals.json";
+import { addMeal } from "@/services/mealService";
 
 const Page = () => {
   const [isAddMeal, setIsAddMeal] = useState<boolean>(false);
@@ -31,7 +32,7 @@ const Page = () => {
         </div>
       </div>
       <div className={styles["mid-container"]}>
-        {isAddMeal ? <AddMealForm /> : ""}
+        {isAddMeal ? <MealForm title="Add Meal Form" submit={addMeal} /> : ""}
       </div>
       <div className={styles["bottom-container"]}>
         <MealList meals={meals} filterText={filterText} draggable={false} />
