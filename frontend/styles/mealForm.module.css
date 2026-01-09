@@ -1,95 +1,229 @@
+/* -------------------- */
+/* FORM CONTAINER       */
+/* -------------------- */
 .formContainer {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
   width: 100%;
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #fafafa;
+  padding: 36px;
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* -------------------- */
+/* TYPOGRAPHY           */
+/* -------------------- */
+.formContainer h1 {
+  font-size: 2.4rem;
+  margin: 0 auto 14px auto;
+  font-weight: 700;
+  color: #333;
 }
 
 .formContainer label {
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #444;
 }
 
+/* -------------------- */
+/* INPUTS & TEXTAREAS   */
+/* -------------------- */
 .formContainer input,
-.formContainer select {
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  height: 44px; /* fixed height */
+.formContainer select,
+.formContainer textarea {
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 10px 14px;
   box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.formContainer input:focus,
+.formContainer select:focus,
+.formContainer textarea:focus {
+  border-color: #7a7af5;
+  box-shadow: 0 0 10px rgba(122, 122, 245, 0.2);
 }
 
 .formContainer textarea {
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  resize: none;
-  box-sizing: border-box;
-  height: 44px; /* only main instructions can be taller if desired */
+  min-height: 180px;
+  resize: vertical;
 }
 
+/* -------------------- */
+/* Meal Name Input LARGER */
+#mealName {
+  font-size: 1.3rem;
+  padding: 12px 16px;
+}
+
+/* Tag input larger text */
+.inlineInput input[type="text"] {
+  font-size: 1.1rem;
+  padding: 10px 14px;
+}
+
+/* -------------------- */
+/* BUTTONS              */
+/* -------------------- */
 .formContainer button {
-  padding: 8px 12px;
-  background-color: #8282f3;
-  color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
 }
 
-.formContainer button:hover {
-  background-color: #5a5adf;
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-.formContainer h1 {
-  font-size: 2rem;
-  margin: 0 auto;
+/* Submit */
+.formContainer button[type="submit"] {
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #6b6bf0, #7a7af5);
+  color: #fff;
+  font-weight: 600;
+  align-self: flex-start;
 }
 
-.addMoreButton {
-  margin-top: 10px;
-  background-color: red;
+.formContainer button[type="submit"]:hover {
+  background: linear-gradient(135deg, #5757dc, #6363e6);
 }
 
-/* Inline inputs for tags and ingredients */
+/* Add more ingredients button */
+.ingredientAddMoreButton {
+  padding: 8px 16px;
+  background: #7a7af5;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  align-self: flex-start;
+  transition: background 0.2s ease;
+}
+
+.ingredientAddMoreButton:hover {
+  background: #6363e6;
+}
+
+/* -------------------- */
+/* LAYOUT HELPERS       */
+/* -------------------- */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .inlineInput {
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 10px;
   align-items: center;
-  margin-bottom: 8px;
+  flex-wrap: wrap;
 }
 
-/* Tags */
+/* ==================== */
+/* TAGS (CHIPS)         */
+/* ==================== */
 .tagsList {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .tag {
-  background-color: #ddd;
-  padding: 4px 8px;
-  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background-color: #f0f0ff;
+  color: #333;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
 }
 
-/* Ingredients */
-.ingredientsList {
+.tag:hover {
+  background-color: #e0e0ff;
+}
+
+/* Small circular remove button inside tag */
+.removeTagButton {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background-color: #bdbdf3;
+  color: #fff;
+  font-size: 0.7rem;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
+.removeTagButton:hover {
+  background-color: #e24a4a77;
+}
+
+/* Tag add button */
+.addTagButton {
+  height: 44px;
+  padding: 0 14px;
+  font-size: 0.95rem;
+  background-color: #7a7af5;
+  color: white;
+  border-radius: 8px;
+}
+
+.addTagButton:hover {
+  background-color: #6363e6;
+}
+
+/* ==================== */
+/* INGREDIENTS          */
+/* ==================== */
+.quantityInput {
+  width: 70px;
+}
+
+.unitSelect {
+  width: 90px;
+}
+
+.ingredientNameInput {
+  flex: 1;
+  min-width: 220px;
+}
+
+.ingredientDeleteButton {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  background-color: #e24a4a;
+  color: white;
+  border-radius: 6px;
+}
+
+.ingredientDeleteButton:hover {
+  background-color: #c63d3d;
+}
+
+/* -------------------- */
+/* INSTRUCTIONS         */
+/* -------------------- */
 :global(#instructions) {
-  height: 200px;
-  resize: none;
+  height: 220px;
   width: 100%;
   box-sizing: border-box;
 }

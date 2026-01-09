@@ -1,19 +1,6 @@
 "use server";
 import meals from "@/data/mockMeals.json";
-
-export interface Ingredient {
-  quantity: string;
-  unit: string;
-  name: string;
-}
-
-export interface Meal {
-  id?: string;
-  mealName: string;
-  tags: string[];
-  ingredients: Ingredient[];
-  instructions: string;
-}
+import { Meal } from "../../shared/types/meal";
 
 async function handleResponse(res: Response) {
   const data = await res.json().catch(() => ({}));

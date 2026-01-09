@@ -14,12 +14,13 @@ async function Page({ params }: PageProps) {
 
   return (
     <div className={styles["container"]}>
-      <MealForm
-        title="Update Meal"
-        submit={updateMeal}
-        mealId={id}
-        initialMeal={initialMeal}
-      />
+      <div className={styles["mealForm-container"]}>
+        <MealForm
+          title="Update Meal"
+          submit={updateMeal}
+          initialMeal={initialMeal}
+        />
+      </div>
     </div>
   );
 }
