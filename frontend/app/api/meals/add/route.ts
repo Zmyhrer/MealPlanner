@@ -1,33 +1,38 @@
-import { NextResponse } from "next/server";
+import meals from "@/data/mockMeals.json";
+import { Meal } from "../../../../../shared/types/meal";
+import handleResponse from "@/services/mealService";
 
-interface Ingredient {
-  quantity: string;
-  unit: string;
-  name: string;
+export async function addMeal(meal: Meal): Promise<Meal> {
+  const res = await fetch("/api/meals/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(meal),
+  });
+
+  return handleResponse(res);
 }
 
-interface Meal {
-  mealName: string;
-  tags: string[];
-  ingredients: Ingredient[];
-  instructions: string;
+export async function updateMeal(meal: Meal): Promise<Meal> {
+  const res = await fetch("/api/meals/update", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(meal),
+  });
+
+  return handleResponse(res);
 }
 
-export async function POST(req: Request) {
+export async function getMealById(id: string): Promise<Meal> {
+  // Try fetching from API
   try {
-    const meal: Meal = await req.json();
-
-    console.log("Received meal:", meal);
-
-    return NextResponse.json(
-      { message: "Meal added successfully", meal },
-      { status: 201 }
-    );
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json(
-      { message: "Internal server error" },
-      { status: 500 }
-    );
+    const res = await fetch(`/api/meals/${id}`);
+    if (!res.ok) throw new Error(res.statusText);
+    const data: Meal = await res.json();
+    return data;
+  } catch {
+    // Fallback to mock data
+    const meal = meals.find((m) => m.id === id);
+    if (!meal) throw new Error("Meal not found");
+    return meal;
   }
 }
