@@ -1,29 +1,22 @@
 import type { Metadata } from "next";
-import "../styles/globals.css";
-import "../styles/app.css";
-import NavBar from "@/components/navBar";
-import Header from "@/components/header";
 
+import "./globals.css";
+import { StorageErrorBoundary } from "./components/StorageErrorBoundary";
 export const metadata: Metadata = {
   title: "MealPlanner",
-  description: "Plan your meals",
+  description:
+    "A sophisticated meal planning application that uses AI to curate weekly schedules, generate grocery lists, and adapt to your dietary preferences with seamless unit conversion.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body>
-        <div className="grid-container">
-          <div className="grid-item-1">
-            <Header />
-            <NavBar />
-          </div>
-          <div className="main">{children}</div>
-        </div>
+        <StorageErrorBoundary>{children}</StorageErrorBoundary>
       </body>
     </html>
   );

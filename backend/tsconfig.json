@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",           // Modern Node.js features
+    "module": "commonjs",         // Express uses CommonJS
+    "lib": ["ES2020"],
+    "outDir": "./dist",           // Where to compile the JS files
+    "rootDir": "./src",
+    "strict": true,               // <-- THIS IS THE MOST IMPORTANT LINE
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
