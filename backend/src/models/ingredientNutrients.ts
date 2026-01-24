@@ -1,4 +1,4 @@
-export interface Ingredient_Nutrients {
+export interface Ingredient_Nutrient {
   id: string;
   ingredient_id: string;
   nutrient_id: string;
