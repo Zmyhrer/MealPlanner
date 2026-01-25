@@ -1,37 +1,21 @@
-import * as ingredientRepo from "../repositories/ingredientsRepository";
+import * as ingredientsRepo from "../repositories/ingredientsRepository";
 import { Ingredient } from "../models/ingredients";
-import { UpdateIngredientInput } from "./types";
+import { createCrudService } from "../utils/serviceHelpers";
 
-export async function addIngredient(name: string): Promise<Ingredient> {
-  if (!name?.trim()) {
-    throw new Error("Ingredient name is required");
-  }
-  return await ingredientRepo.addIngredient(name);
-}
+// Wrap the repo functions to match { add(data), update(id, updates), remove(id) }
+const repoWrapper = {
+  add: (data: Omit<Ingredient, "id">) =>
+    ingredientsRepo.addIngredient(data.name),
+  update: ingredientsRepo.updateIngredient,
+  remove: ingredientsRepo.deleteIngredient,
+};
 
-export async function updateIngredient(
-  id: string,
-  updates: UpdateIngredientInput,
-): Promise<Ingredient> {
-  if (!id?.trim()) {
-    throw new Error("Ingredient_Nutrient id is required");
-  }
-  if (!updates.name) {
-    throw new Error("At least one field must be provided");
-  }
-  return await ingredientRepo.updateIngredient(id, updates);
-}
+const ingredientsService = createCrudService<
+  Omit<Ingredient, "id">,
+  Partial<Ingredient>,
+  Ingredient
+>("Ingredient", repoWrapper, ["name"]);
 
-export async function deleteIngredient(id: string): Promise<Ingredient> {
-  if (!id?.trim()) {
-    throw new Error("Ingredient_Nutrient id is required");
-  }
-
-  const deletedUser = await ingredientRepo.deleteIngredient(id);
-
-  if (!deletedUser) {
-    throw new Error("Ingredient_Nutrient not found");
-  }
-
-  return deletedUser;
-}
+export const addIngredient = ingredientsService.add;
+export const updateIngredient = ingredientsService.update;
+export const deleteIngredient = ingredientsService.delete;

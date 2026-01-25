@@ -1,66 +1,45 @@
 import pool from "../database/connection";
 import { Ingredient_Nutrient } from "../models/ingredientNutrients";
 import { UpdateIngredientNutrientInput } from "../services/types";
+import {
+  buildInsertQuery,
+  buildUpdateQuery,
+  buildDeleteQuery,
+} from "../utils/repositoryHelpers";
+
+const TABLE = "ingredient_nutrients" as const;
+
+const COLUMNS = ["ingredient_id", "nutrient_id", "unit", "value"] as const;
+
+type IngredientNutrientInsert = Pick<
+  Ingredient_Nutrient,
+  (typeof COLUMNS)[number]
+>;
 
 export async function addIngredientNutrient(
-  ingredient_id: string,
-  nutrient_id: string,
-  unit: string,
-  value: number,
+  data: IngredientNutrientInsert,
 ): Promise<Ingredient_Nutrient> {
-  const res = await pool.query(
-    "INSERT into ingredient_nutrients (ingredient_id, nutrient_id, unit, value) VALUES ($1, $2, $3, $4) RETURNING *;",
-    [ingredient_id, nutrient_id, unit, value],
-  );
+  const { query, values } = buildInsertQuery(TABLE, data, COLUMNS);
+
+  const res = await pool.query(query, values);
   return res.rows[0];
 }
 
-export async function UpdateIngredientNutrient(
+export async function updateIngredientNutrient(
   id: string,
   updates: UpdateIngredientNutrientInput,
 ): Promise<Ingredient_Nutrient> {
-  const fields = [];
-  const values = [];
-  let index = 1;
+  const { query, values } = buildUpdateQuery(TABLE, id, updates, COLUMNS);
 
-  if (updates.ingredient_id !== undefined) {
-    fields.push(`ingredient_id = $${index}`);
-    values.push(updates.ingredient_id);
-    index++;
-  }
-
-  if (updates.nutrient_id !== undefined) {
-    fields.push(`nutrient_id = $${index}`);
-    values.push(updates.nutrient_id);
-    index++;
-  }
-
-  if (updates.unit !== undefined) {
-    fields.push(`unit = $${index}`);
-    values.push(updates.unit);
-    index++;
-  }
-
-  if (updates.value !== undefined) {
-    fields.push(`value = $${index}`);
-    values.push(updates.value);
-    index++;
-  }
-
-  const res = await pool.query(
-    `UPDATE ingredient_nutrients SET ${fields.join(", ")} WHERE id = $${index} RETURNING *;`,
-    [...values, id],
-  );
-
+  const res = await pool.query(query, values);
   return res.rows[0];
 }
 
 export async function deleteIngredientNutrient(
   id: string,
 ): Promise<Ingredient_Nutrient> {
-  const res = await pool.query(
-    "DELETE FROM ingredient_nutrients WHERE id = $1 RETURNING *;",
-    [id],
-  );
+  const { query, values } = buildDeleteQuery(TABLE, id);
+
+  const res = await pool.query(query, values);
   return res.rows[0];
 }

@@ -1,4 +1,4 @@
-enum Meal_Type {
+export enum Meal_Type {
   breakfast,
   lunch,
   dinner,
@@ -6,7 +6,7 @@ enum Meal_Type {
   appetizer,
 }
 
-export interface Scheduled_Meals {
+export interface Scheduled_Meal {
   id: string;
   meal_id: string;
   meal_type: Meal_Type;

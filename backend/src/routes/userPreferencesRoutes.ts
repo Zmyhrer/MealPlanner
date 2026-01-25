@@ -1,8 +1,11 @@
-import { Router, Request, Response } from "express";
-import * as usersService from "../services/usersService";
+import * as userPreferencesService from "../services/userPreferencesService";
+import { createCrudRoutes } from "../utils/routesHelper";
 
-const router = Router();
-
-router.post("/", async (req: Request, res: Response) => {});
+const router = createCrudRoutes(
+  userPreferencesService,
+  "addUserPreference",
+  "updateUserPreference",
+  "deleteUserPreference",
+);
 
 export default router;

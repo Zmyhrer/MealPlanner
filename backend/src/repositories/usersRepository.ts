@@ -1,46 +1,32 @@
 import pool from "../database/connection";
-import { Users } from "../models/users";
+import { User } from "../models/users";
 import { UpdateUserInput } from "../services/types";
+import {
+  buildInsertQuery,
+  buildUpdateQuery,
+  buildDeleteQuery,
+} from "../utils/repositoryHelpers";
 
-export async function addUser(email: string, name: string): Promise<Users> {
-  const res = await pool.query(
-    "INSERT into users (email, name) VALUES ($1, $2) RETURNING *;",
-    [email, name],
-  );
+const TABLE = "users" as const;
+const COLUMNS = ["email", "name"] as const;
+
+export async function addUser(data: Omit<User, "id">): Promise<User> {
+  const { query, values } = buildInsertQuery(TABLE, data, COLUMNS);
+  const res = await pool.query(query, values);
   return res.rows[0];
 }
 
 export async function updateUser(
   id: string,
   updates: UpdateUserInput,
-): Promise<Users> {
-  const fields = [];
-  const values = [];
-  let index = 1;
-
-  if (updates.email !== undefined) {
-    fields.push(`email = $${index}`);
-    values.push(updates.email);
-    index++;
-  }
-
-  if (updates.name !== undefined) {
-    fields.push(`name = $${index}`);
-    values.push(updates.name);
-    index++;
-  }
-
-  const res = await pool.query(
-    `UPDATE users SET ${fields.join(", ")} WHERE id = $${index} RETURNING *;`,
-    [...values, id],
-  );
-
+): Promise<User> {
+  const { query, values } = buildUpdateQuery(TABLE, id, updates, COLUMNS);
+  const res = await pool.query(query, values);
   return res.rows[0];
 }
 
-export async function deleteUser(id: string): Promise<Users> {
-  const res = await pool.query("DELETE FROM users WHERE id = $1 RETURNING *;", [
-    id,
-  ]);
+export async function deleteUser(id: string): Promise<User> {
+  const { query, values } = buildDeleteQuery(TABLE, id);
+  const res = await pool.query(query, values);
   return res.rows[0];
 }

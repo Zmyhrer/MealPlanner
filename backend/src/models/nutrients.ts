@@ -1,4 +1,4 @@
-export interface Nutrients {
+export interface Nutrient {
   id: string;
   name: string;
 }

@@ -1,6 +1,11 @@
-import { Router, Request, Response } from "express";
-import * as usersService from "../services/usersService";
+import * as mealsService from "../services/mealsService";
+import { createCrudRoutes } from "../utils/routesHelper";
 
-const router = Router();
+const router = createCrudRoutes(
+  mealsService,
+  "addMeal",
+  "updateMeal",
+  "deleteMeal",
+);
 
 export default router;

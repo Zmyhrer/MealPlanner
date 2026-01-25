@@ -1,32 +1,32 @@
 import pool from "../database/connection";
-import { Meal_Tag } from "../models/mealTags";
+import { Instruction } from "../models/instructions";
 import {
   buildInsertQuery,
   buildUpdateQuery,
   buildDeleteQuery,
 } from "../utils/repositoryHelpers";
 
-const TABLE = "meal_tags" as const;
-const COLUMNS = ["meal_id", "tag"] as const;
+const TABLE = "instructions" as const;
+const COLUMNS = ["meal_id", "order", "text"] as const;
 
-export async function addMealTag(
-  data: Omit<Meal_Tag, "id">,
-): Promise<Meal_Tag> {
+export async function addInstruction(
+  data: Omit<Instruction, "id">,
+): Promise<Instruction> {
   const { query, values } = buildInsertQuery(TABLE, data, COLUMNS);
   const res = await pool.query(query, values);
   return res.rows[0];
 }
 
-export async function updateMealTag(
+export async function updateInstruction(
   id: string,
-  updates: Partial<Meal_Tag>,
-): Promise<Meal_Tag> {
+  updates: Partial<Instruction>,
+): Promise<Instruction> {
   const { query, values } = buildUpdateQuery(TABLE, id, updates, COLUMNS);
   const res = await pool.query(query, values);
   return res.rows[0];
 }
 
-export async function deleteMealTag(id: string): Promise<Meal_Tag> {
+export async function deleteInstruction(id: string): Promise<Instruction> {
   const { query, values } = buildDeleteQuery(TABLE, id);
   const res = await pool.query(query, values);
   return res.rows[0];
