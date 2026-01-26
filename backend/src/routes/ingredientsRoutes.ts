@@ -1,4 +1,4 @@
-import * as ingredientsService from "../services/ingredientsService";
+import * as ingredientsService from "../services/entities/ingredientsService";
 import { createCrudRoutes } from "../utils/routesHelper";
 
 const router = createCrudRoutes(

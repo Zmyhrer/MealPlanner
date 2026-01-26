@@ -1,6 +1,6 @@
-import * as scheduledMealsRepo from "../repositories/scheduledMealsRepository";
-import { Scheduled_Meal } from "../models/scheduledMeals";
-import { createCrudService } from "../utils/serviceHelpers";
+import * as scheduledMealsRepo from "../../repositories/scheduledMealsRepository";
+import { Scheduled_Meal } from "../../models/scheduledMeals";
+import { createCrudService } from "../../utils/serviceHelpers";
 
 const repoWrapper = {
   add: scheduledMealsRepo.addScheduledMeal,

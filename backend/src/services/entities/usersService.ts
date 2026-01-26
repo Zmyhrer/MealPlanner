@@ -1,6 +1,6 @@
-import * as usersRepo from "../repositories/usersRepository";
-import { User } from "../models/users";
-import { createCrudService } from "../utils/serviceHelpers";
+import * as usersRepo from "../../repositories/usersRepository";
+import { User } from "../../models/users";
+import { createCrudService } from "../../utils/serviceHelpers";
 
 const repoWrapper = {
   add: usersRepo.addUser,

@@ -1,6 +1,6 @@
 import pool from "../database/connection";
 import { User } from "../models/users";
-import { UpdateUserInput } from "../services/types";
+import { UpdateUserInput } from "./types";
 import {
   buildInsertQuery,
   buildUpdateQuery,

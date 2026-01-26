@@ -1,6 +1,6 @@
-import * as settingsRepo from "../repositories/settingsRepository";
-import { Setting } from "../models/settings";
-import { createCrudService } from "../utils/serviceHelpers";
+import * as settingsRepo from "../../repositories/settingsRepository";
+import { Setting } from "../../models/settings";
+import { createCrudService } from "../../utils/serviceHelpers";
 
 const repoWrapper = {
   add: settingsRepo.addSetting,

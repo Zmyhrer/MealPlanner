@@ -1,6 +1,6 @@
 import pool from "../database/connection";
 import { Ingredient_Nutrient } from "../models/ingredientNutrients";
-import { UpdateIngredientNutrientInput } from "../services/types";
+import { UpdateIngredientNutrientInput } from "./types";
 import {
   buildInsertQuery,
   buildUpdateQuery,

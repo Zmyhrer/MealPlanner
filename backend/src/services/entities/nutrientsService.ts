@@ -1,6 +1,6 @@
-import * as nutrientsRepo from "../repositories/nutrientsRepository";
-import { Nutrient } from "../models/nutrients";
-import { createCrudService } from "../utils/serviceHelpers";
+import * as nutrientsRepo from "../../repositories/nutrientsRepository";
+import { Nutrient } from "../../models/nutrients";
+import { createCrudService } from "../../utils/serviceHelpers";
 
 const repoWrapper = {
   add: (data: Omit<Nutrient, "id">) => nutrientsRepo.addNutrient(data.name),

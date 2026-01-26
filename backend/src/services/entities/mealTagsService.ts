@@ -1,6 +1,6 @@
-import * as mealTagsRepo from "../repositories/mealTagsRepository";
-import { Meal_Tag } from "../models/mealTags";
-import { createCrudService } from "../utils/serviceHelpers";
+import * as mealTagsRepo from "../../repositories/mealTagsRepository";
+import { Meal_Tag } from "../../models/mealTags";
+import { createCrudService } from "../../utils/serviceHelpers";
 
 const repoWrapper = {
   add: mealTagsRepo.addMealTag,

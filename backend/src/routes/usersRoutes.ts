@@ -1,4 +1,4 @@
-import * as usersService from "../services/usersService";
+import * as usersService from "../services/entities/usersService";
 import { createCrudRoutes } from "../utils/routesHelper";
 
 const router = createCrudRoutes(

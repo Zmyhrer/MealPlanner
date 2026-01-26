@@ -1,7 +1,6 @@
-import * as ingredientNutrientsRepo from "../repositories/ingredientNutrientsRepository";
-import { Ingredient_Nutrient } from "../models/ingredientNutrients";
-import { UpdateIngredientNutrientInput } from "./types";
-import { createCrudService } from "../utils/serviceHelpers";
+import * as ingredientNutrientsRepo from "../../repositories/ingredientNutrientsRepository";
+import { Ingredient_Nutrient } from "../../models/ingredientNutrients";
+import { createCrudService } from "../../utils/serviceHelpers";
 
 // Wrap repository functions in the expected { add, update, remove } keys
 const repoWrapper = {
@@ -12,7 +11,7 @@ const repoWrapper = {
 
 const ingredientNutrientsService = createCrudService<
   Omit<Ingredient_Nutrient, "id">,
-  UpdateIngredientNutrientInput,
+  Partial<Ingredient_Nutrient>,
   Ingredient_Nutrient
 >("Ingredient_Nutrient", repoWrapper, [
   "ingredient_id",

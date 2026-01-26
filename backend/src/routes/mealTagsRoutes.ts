@@ -1,4 +1,4 @@
-import * as mealTagsService from "../services/mealTagsService";
+import * as mealTagsService from "../services/entities/mealTagsService";
 import { createCrudRoutes } from "../utils/routesHelper";
 
 const router = createCrudRoutes(

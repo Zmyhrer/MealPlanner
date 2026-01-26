@@ -1,6 +1,6 @@
-import * as instructionsRepo from "../repositories/instructionsRepository";
-import { Instruction } from "../models/instructions";
-import { createCrudService } from "../utils/serviceHelpers";
+import * as instructionsRepo from "../../repositories/instructionsRepository";
+import { Instruction } from "../../models/instructions";
+import { createCrudService } from "../../utils/serviceHelpers";
 
 const repoWrapper = {
   add: instructionsRepo.addInstruction,

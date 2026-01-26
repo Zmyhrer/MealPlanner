@@ -1,6 +1,6 @@
-import * as userPreferencesRepo from "../repositories/userPreferencesRepository";
-import { User_Preference } from "../models/userPreferences";
-import { createCrudService } from "../utils/serviceHelpers";
+import * as userPreferencesRepo from "../../repositories/userPreferencesRepository";
+import { User_Preference } from "../../models/userPreferences";
+import { createCrudService } from "../../utils/serviceHelpers";
 
 const repoWrapper = {
   add: userPreferencesRepo.addUserPreference,

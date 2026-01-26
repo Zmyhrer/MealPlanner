@@ -1,4 +1,4 @@
-import * as settingsService from "../services/settingsService";
+import * as settingsService from "../services/entities/settingsService";
 import { createCrudRoutes } from "../utils/routesHelper";
 
 const router = createCrudRoutes(

@@ -1,6 +1,6 @@
-import * as mealIngredientsRepo from "../repositories/mealIngredientsRepository";
-import { Meal_Ingredient } from "../models/mealIngredients";
-import { createCrudService } from "../utils/serviceHelpers";
+import * as mealIngredientsRepo from "../../repositories/mealIngredientsRepository";
+import { Meal_Ingredient } from "../../models/mealIngredients";
+import { createCrudService } from "../../utils/serviceHelpers";
 
 const repoWrapper = {
   add: mealIngredientsRepo.addMealIngredient,

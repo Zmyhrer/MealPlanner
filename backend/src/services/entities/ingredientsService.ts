@@ -1,6 +1,6 @@
-import * as ingredientsRepo from "../repositories/ingredientsRepository";
-import { Ingredient } from "../models/ingredients";
-import { createCrudService } from "../utils/serviceHelpers";
+import * as ingredientsRepo from "../../repositories/ingredientsRepository";
+import { Ingredient } from "../../models/ingredients";
+import { createCrudService } from "../../utils/serviceHelpers";
 
 // Wrap the repo functions to match { add(data), update(id, updates), remove(id) }
 const repoWrapper = {

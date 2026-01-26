@@ -17,11 +17,7 @@ export function buildInsertQuery<T extends Record<string, any>>(
     }
   }
 
-  const query = `
-    INSERT INTO ${table} (${columns.join(", ")})
-    VALUES (${placeholders.join(", ")})
-    RETURNING *;
-  `;
+  const query = `INSERT INTO ${table} (${columns.join(", ")}) VALUES (${placeholders.join(", ")}) RETURNING *;`;
 
   return { query, values };
 }
@@ -44,12 +40,7 @@ export function buildUpdateQuery<T extends Record<string, any>>(
     }
   }
 
-  const query = `
-    UPDATE ${table}
-    SET ${fields.join(", ")}
-    WHERE id = $${index}
-    RETURNING *;
-  `;
+  const query = `UPDATE ${table} SET ${fields.join(", ")} WHERE id = $${index} RETURNING *;`;
 
   return { query, values: [...values, id] };
 }
