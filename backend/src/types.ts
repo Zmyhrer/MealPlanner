@@ -1,4 +1,4 @@
-import { Meal_Type } from "../models/scheduledMeals";
+import { Meal_Type } from "./models/scheduledMeals";
 
 export type UpdateIngredientNutrientInput = {
   ingredient_id?: string;

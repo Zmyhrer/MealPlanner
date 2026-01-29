@@ -1,28 +1,37 @@
-export function buildInsertQuery<T extends Record<string, any>>(
+//INSERT
+export function buildInsertQueryFlexible<T extends Record<string, any>>(
   table: string,
-  data: T,
+  data: T | T[],
   allowedFields: readonly (keyof T)[],
 ): { query: string; values: any[] } {
-  const columns: string[] = [];
-  const placeholders: string[] = [];
+  const dataArray = Array.isArray(data) ? data : [data];
+  if (dataArray.length === 0) throw new Error("No data provided");
+
+  const columns = allowedFields.map(String);
   const values: any[] = [];
+  const placeholders: string[] = [];
   let index = 1;
 
-  for (const key of allowedFields) {
-    if (data[key] !== undefined) {
-      columns.push(String(key));
-      placeholders.push(`$${index}`);
-      values.push(data[key]);
-      index++;
+  for (const row of dataArray) {
+    const rowPlaceholders: string[] = [];
+    for (const key of allowedFields) {
+      if (row[key] === undefined) {
+        rowPlaceholders.push("DEFAULT");
+      } else {
+        rowPlaceholders.push(`$${index}`);
+        values.push(row[key]);
+        index++;
+      }
     }
+    placeholders.push(`(${rowPlaceholders.join(", ")})`);
   }
 
-  const query = `INSERT INTO ${table} (${columns.join(", ")}) VALUES (${placeholders.join(", ")}) RETURNING *;`;
-
+  const query = `INSERT INTO ${table} (${columns.join(", ")}) VALUES ${placeholders.join(", ")} RETURNING *;`;
   return { query, values };
 }
 
-export function buildUpdateQuery<T extends Record<string, any>>(
+//UPDATE
+export function buildUpdateQueryFlexible<T extends Record<string, any>>(
   table: string,
   id: string,
   updates: T,
@@ -40,20 +49,24 @@ export function buildUpdateQuery<T extends Record<string, any>>(
     }
   }
 
-  const query = `UPDATE ${table} SET ${fields.join(", ")} WHERE id = $${index} RETURNING *;`;
+  if (fields.length === 0)
+    throw new Error("At least one field must be provided");
 
+  const query = `UPDATE ${table} SET ${fields.join(", ")} WHERE id = $${index} RETURNING *;`;
   return { query, values: [...values, id] };
 }
 
-export function buildDeleteQuery(
+//DELETE
+export function buildDeleteQueryFlexible(
   table: string,
-  id: string,
+  id: string | string[],
 ): { query: string; values: any[] } {
-  const query = `
-    DELETE FROM ${table}
-    WHERE id = $1
-    RETURNING *;
-  `;
+  const ids = Array.isArray(id) ? id : [id];
 
-  return { query, values: [id] };
+  if (ids.length === 0) throw new Error("No id provided for deletion");
+
+  const placeholders = ids.map((_, index) => `$${index + 1}`);
+  const query = `DELETE FROM ${table} WHERE id IN (${placeholders.join(", ")}) RETURNING *;`;
+
+  return { query, values: ids };
 }
