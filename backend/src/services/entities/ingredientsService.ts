@@ -26,7 +26,7 @@ export async function createIngredientService(
   return repository.create(ingredient);
 }
 
-export async function updateIngredientService(
+export async function updateIngredienByIdService(
   repository: IngredientRepository,
   id: string,
   name: string,
@@ -35,7 +35,7 @@ export async function updateIngredientService(
   return repository.updateById(id, validUpdate);
 }
 
-export async function softDeleteIngredientService(
+export async function softDeleteIngredientByIdService(
   repository: IngredientRepository,
   id: string,
 ): Promise<Ingredient> {

@@ -35,10 +35,12 @@ export function createPostgresIngredientRepository(): IngredientRepository {
         throw new Error(`Ingredient with id ${id} not found`);
       }
 
+      const row = rows[0];
+
       return {
-        id: rows[0].id,
-        name: rows[0].name,
-        deleted_at: rows[0].deleted_at,
+        id: row.id,
+        name: row.name,
+        deleted_at: row.deleted_at,
       };
     },
 
@@ -48,10 +50,12 @@ export function createPostgresIngredientRepository(): IngredientRepository {
         [ingredient.name],
       );
 
+      const row = rows[0];
+
       return {
-        id: rows[0].id,
-        name: rows[0].name,
-        deleted_at: rows[0].deleted_at,
+        id: row.id,
+        name: row.name,
+        deleted_at: row.deleted_at,
       };
     },
 
@@ -68,10 +72,12 @@ export function createPostgresIngredientRepository(): IngredientRepository {
         throw new Error(`Ingredient with id ${id} not found`);
       }
 
+      const row = rows[0];
+
       return {
-        id: rows[0].id,
-        name: rows[0].name,
-        deleted_at: rows[0].deleted_at,
+        id: row.id,
+        name: row.name,
+        deleted_at: row.deleted_at,
       };
     },
 
@@ -85,10 +91,12 @@ export function createPostgresIngredientRepository(): IngredientRepository {
         throw new Error(`Ingredient with id ${id} not found`);
       }
 
+      const row = rows[0];
+
       return {
-        id: rows[0].id,
-        name: rows[0].name,
-        deleted_at: rows[0].deleted_at,
+        id: row.id,
+        name: row.name,
+        deleted_at: row.deleted_at,
       };
     },
   };

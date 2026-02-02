@@ -3,8 +3,8 @@ import {
   createIngredientService,
   getAllIngredientsService,
   getIngredientByIdService,
-  softDeleteIngredientService,
-  updateIngredientService,
+  softDeleteIngredientByIdService,
+  updateIngredienByIdService,
 } from "../services/entities/ingredientsService";
 import { createPostgresIngredientRepository } from "../repositories/ingredientsRepository";
 
@@ -52,7 +52,7 @@ const IngredientsRoutes = () => {
     const { name } = req.body;
 
     try {
-      const ingredient = await updateIngredientService(repository, id, name);
+      const ingredient = await updateIngredienByIdService(repository, id, name);
       res.status(200).json(ingredient);
     } catch (err: any) {
       res.status(404).json({ error: err.message });
@@ -64,7 +64,7 @@ const IngredientsRoutes = () => {
     const { id } = req.params;
 
     try {
-      await softDeleteIngredientService(repository, id);
+      await softDeleteIngredientByIdService(repository, id);
       res.status(200).send();
     } catch (err: any) {
       res.status(404).json({ error: err.message });
