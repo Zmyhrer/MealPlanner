@@ -1,5 +1,18 @@
 
-GET http://localhost:5151/meals
+//GetAll
+GET http://localhost:5151/api/meals
 
-GET http://localhost:5151/meals
+### 
 
+//GetById
+GET http://localhost:5151/api/meals/1
+
+###
+
+//UpdateById
+PATCH http://localhost:5151/api/meals/1
+
+###
+
+//DeleteById
+DELETE http://localhost:5151/api/meals/1
