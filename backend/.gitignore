@@ -14,6 +14,9 @@ obj/
 ## Logs
 *.log
 
+## Environment
+.env
+
 ## Local database files
 *.db
 *.sqlite

@@ -1,4 +1,4 @@
-namespace MealPlanner.Models
+namespace backend.Models
 
 
 {
@@ -8,7 +8,7 @@ namespace MealPlanner.Models
   }
   public class ScheduledMeal
   {
-    public string Id { get; set; } = string.Empty;
+    public Guid id { get; set; }
     public string MealId { get; set; } = string.Empty;
     public MealType MealType { get; set; }
   }

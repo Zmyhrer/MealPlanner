@@ -1,8 +1,8 @@
-namespace MealPlanner.Models
+namespace backend.Models
 {
   public class Nutrient
   {
-    public string Id { get; set; } = string.Empty;
+    public Guid id { get; set; }
     public string Name { get; set; } = string.Empty;
   }
 }

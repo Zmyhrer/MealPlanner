@@ -6,7 +6,7 @@ public class Ingredient_Nutrient
 {
   [Key]
   [Required]
-  public string id { get; set; } = string.Empty;
+  public Guid id { get; set; }
 
   [Required]
   public string ingredient_id { get; set; } = string.Empty;
